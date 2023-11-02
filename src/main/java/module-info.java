@@ -1,9 +1,10 @@
 module photos {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.desktop;
 
+    exports com.photos;
+    opens com.photos to javafx.fxml;
 
-    opens photos to javafx.fxml;
-    exports photos;
+    exports com.photos.fxml;
+    opens com.photos.fxml to javafx.fxml;
 }
