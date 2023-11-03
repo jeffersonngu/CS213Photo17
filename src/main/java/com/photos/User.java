@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.List;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public static String storeDir = "data";
     public static String storeFile = "";
 

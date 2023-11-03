@@ -25,7 +25,7 @@ public class LoginController {
     private TextField usernameInput;
 
     @FXML
-    protected void onLoginClicked(ActionEvent event) {
+    protected void onLogin(ActionEvent event) {
         if (usernameInput == null || usernameInput.getText().equals("")) {
             signinText.setText("Please input a username!");
         } else {
