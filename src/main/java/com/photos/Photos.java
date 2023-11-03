@@ -17,7 +17,7 @@ public class Photos extends Application {
     public static final String STORE_DIR = "data";
     private static final String STORE_USERNAMES = "usernames.dat";
 
-    public static Stage stage;
+    public static Stage mainStage;
     public static ObservableList<String> usernames;
 
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Photos extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        this.stage = stage;
+        mainStage = stage;
         // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -52,8 +52,6 @@ public class Photos extends Application {
             oos.writeObject(new ArrayList(list));
             oos.flush();
             oos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,9 +64,7 @@ public class Photos extends Application {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()));
                 List<String> list = (List<String>) ois.readObject();
                 return FXCollections.observableArrayList(list);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }

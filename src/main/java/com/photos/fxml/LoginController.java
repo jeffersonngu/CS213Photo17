@@ -26,10 +26,11 @@ public class LoginController {
 
     @FXML
     protected void onLogin(ActionEvent event) {
-        if (usernameInput == null || usernameInput.getText().equals("")) {
+        if (usernameInput == null || usernameInput.getText().isEmpty()) {
             signinText.setText("Please input a username!");
         } else {
-            signinText.setText("Welcome " + usernameInput.getText() + "!");
+            String username = usernameInput.getText().toLowerCase();
+            signinText.setText("Welcome " + username + "!");
 
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), anchorPane);
             fadeTransition.setFromValue(1);
@@ -37,10 +38,16 @@ public class LoginController {
 
             fadeTransition.setOnFinished(e -> {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+                    String sceneType;
+                    if (username.equals("admin")) {
+                        sceneType = "admin.fxml";
+                    } else {
+                        sceneType = "hello-view.fxml";
+                    }
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneType));
                     Scene scene = new Scene(fxmlLoader.load());
-                    Photos.stage.setScene(scene);
-                    Photos.stage.show();
+                    Photos.mainStage.setScene(scene);
+                    Photos.mainStage.show();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

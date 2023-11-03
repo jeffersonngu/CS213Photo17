@@ -8,9 +8,9 @@
       <Label layoutX="461.0" layoutY="39.0" text="Users" />
       <ListView fx:id="usersListView" layoutX="252.0" layoutY="71.0" prefHeight="224.0" prefWidth="446.0" />
       <Button layoutX="104.0" layoutY="209.0" mnemonicParsing="false" onAction="#onAddUser" text="Add User" />
-      <TextField fx:id="addUserField" layoutX="68.0" layoutY="158.0" />
-      <Label layoutX="84.0" layoutY="119.0" text="Input a new username" />
-      <Label fx:id="deleteUserField" layoutX="396.0" layoutY="307.0" text="Select a User from Above to Delete!" />
+      <TextField fx:id="addUserField" layoutX="68.0" layoutY="158.0" promptText="Username" />
+      <Label fx:id="addUserLabel" layoutX="84.0" layoutY="119.0" text="Input a new username" />
+      <Label fx:id="deleteUserLabel" layoutX="396.0" layoutY="307.0" text="Select a User from Above to Delete!" />
       <Button layoutX="451.0" layoutY="341.0" mnemonicParsing="false" onAction="#onDeleteUser" text="Delete User" />
    </children>
 </AnchorPane>

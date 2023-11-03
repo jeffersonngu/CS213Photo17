@@ -16,10 +16,13 @@ import java.util.ResourceBundle;
 public class AdminController implements Initializable {
 
     @FXML
+    private Label addUserLabel;
+
+    @FXML
     private TextField addUserField;
 
     @FXML
-    private Label deleteUserField;
+    private Label deleteUserLabel;
 
     @FXML
     private ListView<String> usersListView;
@@ -32,15 +35,25 @@ public class AdminController implements Initializable {
     @FXML
     void onAddUser(ActionEvent event) {
         if (addUserField == null || addUserField.getText().isEmpty()) {
-
+            addUserLabel.setText("Please enter a Username for this User!");
+        } else if (Photos.usernames.contains(addUserField.getText())) {
+            addUserLabel.setText("User already exists!");
         } else {
+            addUserLabel.setText("Added " + addUserField.getText() + "!");
             Photos.usernames.add(addUserField.getText());
-            // Create user
+            // TODO: Create equivalent User as well
         }
     }
 
     @FXML
     void onDeleteUser(ActionEvent event) {
-
+        String selectedUser = usersListView.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            deleteUserLabel.setText("Please select a User from the list first!");
+        } else {
+            deleteUserLabel.setText("Deleted " + selectedUser + "!");
+            Photos.usernames.remove(selectedUser);
+            // TODO: Delete equivalent User as well
+        }
     }
 }
