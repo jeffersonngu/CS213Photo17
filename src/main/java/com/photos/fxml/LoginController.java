@@ -1,13 +1,15 @@
 package com.photos.fxml;
 
+import com.photos.Photos;
+import com.photos.User;
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import com.photos.Photos;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -25,7 +27,7 @@ public class LoginController {
     private TextField usernameInput;
 
     @FXML
-    protected void onLogin(ActionEvent event) {
+    protected void onLogin() {
         if (usernameInput == null || usernameInput.getText().isEmpty()) {
             signinText.setText("Please input a username!");
         } else {
@@ -41,7 +43,11 @@ public class LoginController {
                     String sceneType;
                     if (username.equals("admin")) {
                         sceneType = "admin.fxml";
+                    } else if (Photos.usernames.contains(username)) {
+                        User.generateInstance(username);
+                        sceneType = "album-list.fxml";
                     } else {
+                        // TODO: Invalid login, leaving as a test
                         sceneType = "hello-view.fxml";
                     }
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneType));
@@ -54,6 +60,13 @@ public class LoginController {
             });
 
             fadeTransition.play();
+        }
+    }
+
+    @FXML
+    protected void onUsernameKeyPressed(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            onLogin();
         }
     }
 }

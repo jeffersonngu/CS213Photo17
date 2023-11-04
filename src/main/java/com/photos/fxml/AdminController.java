@@ -1,8 +1,6 @@
 package com.photos.fxml;
 
 import com.photos.Photos;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +31,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void onAddUser(ActionEvent event) {
+    protected void onAddUser(ActionEvent event) {
         if (addUserField == null || addUserField.getText().isEmpty()) {
             addUserLabel.setText("Please enter a Username for this User!");
         } else if (Photos.usernames.contains(addUserField.getText())) {
@@ -46,7 +44,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    void onDeleteUser(ActionEvent event) {
+    protected void onDeleteUser(ActionEvent event) {
         String selectedUser = usersListView.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             deleteUserLabel.setText("Please select a User from the list first!");
@@ -56,4 +54,5 @@ public class AdminController implements Initializable {
             // TODO: Delete equivalent User as well
         }
     }
+
 }

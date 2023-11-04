@@ -38,18 +38,19 @@ public class Photos extends Application {
 
     @Override
     public void stop() {
-        writeUsernames(usernames);
+        serializeData();
     }
 
-    public static void printTest() {
-        System.out.println("Testing");
+    public static void serializeData() {
+        writeUsernames(usernames);
+        User.writeUser();
     }
 
     public static void writeUsernames(ObservableList<String> list) {
         try {
             Path path = Paths.get(STORE_DIR, STORE_USERNAMES);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path.toFile()));
-            oos.writeObject(new ArrayList(list));
+            oos.writeObject(new ArrayList<>(list));
             oos.flush();
             oos.close();
         } catch (IOException e) {

@@ -1,30 +1,78 @@
 package com.photos;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static String storeDir = "data";
-    public static String storeFile = "";
+    private static User instance = null;
+    private static boolean isGenerated = false;
 
-    private String username;
-    private List<Album> albumList;
+    public static final String[] STORE_DIR = { "data", "user" };
 
-    public User(String username) {
+    private final String username;
+    private final List<Album> albumList;
+
+    private User(String username) {
         this.username = username;
+        this.albumList = new ArrayList<>();
     }
 
-    public static void writeUser(User user) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
-        oos.writeObject(user);
+    public String getUsername() {
+        return username;
     }
 
-    public static User readApp() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
-        return (User) ois.readObject();
+    public List<Album> getAlbums() {
+        return albumList;
+    }
+
+    public List<Photo> searchPhotos(Predicate<Photo> predicate) {
+        return albumList.stream()
+                .flatMap(album -> album.getPhotos().stream())
+                .filter(predicate)
+                .collect(Collectors.toList());
+    }
+
+    public static synchronized void generateInstance(String username) {
+        if (isGenerated) return;
+        isGenerated = true;
+        instance = readUser(username);
+    }
+
+    public static synchronized User getInstance() {
+        return instance;
+    }
+
+    public static void writeUser() {
+        try {
+            if (instance == null) return;
+            Path path = Paths.get(STORE_DIR[0], STORE_DIR[1], instance.getUsername() + ".dat");
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path.toFile()));
+            oos.writeObject(instance);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static User readUser(String username) {
+        Path path = Paths.get(STORE_DIR[0], STORE_DIR[1], username + ".dat");
+        if (Files.exists(path)) {
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()));
+                return (User) ois.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return new User(username);
     }
 
 }
