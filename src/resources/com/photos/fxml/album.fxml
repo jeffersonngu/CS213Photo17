@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.photos.fxml.LogoutButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.photos.fxml.AlbumController"
-            prefHeight="400.0" prefWidth="711.1">
-
+<AnchorPane prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.AlbumController">
+    <FlowPane fx:id="photoFlowPane" layoutX="67.0" layoutY="51.0" prefHeight="236.0" prefWidth="577.0" />
+    <LogoutButton layoutY="374.0" />
+    <Button layoutX="670.0" layoutY="359.0" mnemonicParsing="false" onAction="#onAddPhoto" prefHeight="40.0" prefWidth="40.0" text="+" />
+   <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#onReturnToAlbums" text="Albums" />
 </AnchorPane>

@@ -10,7 +10,7 @@ public class LogoutButton extends Button {
         super("Logout");
         this.setOnAction(actionEvent -> {
             Photos.serializeData();
-            System.out.println("testing logout"); // TODO: Full implementation
+            Photos.switchScene("login.fxml");
         });
     }
 

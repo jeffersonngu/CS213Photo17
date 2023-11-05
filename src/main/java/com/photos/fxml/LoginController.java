@@ -4,16 +4,12 @@ import com.photos.Photos;
 import com.photos.User;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-
-import java.io.IOException;
 
 public class LoginController {
 
@@ -39,30 +35,25 @@ public class LoginController {
             fadeTransition.setToValue(0);
 
             fadeTransition.setOnFinished(e -> {
-                try {
-                    String sceneType;
-                    if (username.equals("admin")) {
-                        sceneType = "admin.fxml";
-                    } else if (Photos.usernames.contains(username)) {
-                        User.generateInstance(username);
-                        sceneType = "album-list.fxml";
-                    } else {
-                        // TODO: Invalid login, leaving as a test
-                        sceneType = "hello-view.fxml";
-                    }
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneType));
-                    Scene scene = new Scene(fxmlLoader.load());
-                    Photos.mainStage.setScene(scene);
-                    Photos.mainStage.show();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                if (username.equals("admin")) {
+                    Photos.switchScene("admin.fxml");
+                } else if (Photos.getUsernames().contains(username)) {
+                    User.generateInstance(username);
+                    Photos.switchScene("album-list.fxml");
+                } else { /* Invalid Login */
+                    signinText.setText("Invalid username!");
+                    // TODO: Remove, leaving as a test
+                    Photos.switchScene("hello-view.fxml");
                 }
             });
-
             fadeTransition.play();
         }
     }
 
+    /**
+     * Allows user to hit "Enter" key to login instead of Login button
+     * @param event
+     */
     @FXML
     protected void onUsernameKeyPressed(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {

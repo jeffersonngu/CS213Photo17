@@ -27,30 +27,30 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usersListView.setItems(Photos.usernames);
+        usersListView.setItems(Photos.getUsernames());
     }
 
     @FXML
-    protected void onAddUser(ActionEvent event) {
+    protected void onAddUser() {
         if (addUserField == null || addUserField.getText().isEmpty()) {
             addUserLabel.setText("Please enter a Username for this User!");
-        } else if (Photos.usernames.contains(addUserField.getText())) {
+        } else if (Photos.getUsernames().contains(addUserField.getText())) {
             addUserLabel.setText("User already exists!");
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");
-            Photos.usernames.add(addUserField.getText());
+            Photos.getUsernames().add(addUserField.getText());
             // TODO: Create equivalent User as well
         }
     }
 
     @FXML
-    protected void onDeleteUser(ActionEvent event) {
+    protected void onDeleteUser() {
         String selectedUser = usersListView.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             deleteUserLabel.setText("Please select a User from the list first!");
         } else {
             deleteUserLabel.setText("Deleted " + selectedUser + "!");
-            Photos.usernames.remove(selectedUser);
+            Photos.getUsernames().remove(selectedUser);
             // TODO: Delete equivalent User as well
         }
     }

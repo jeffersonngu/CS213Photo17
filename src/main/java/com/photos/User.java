@@ -21,6 +21,10 @@ public class User implements Serializable {
     private final String username;
     private final List<Album> albumList;
 
+    /**
+     * Use {@link #generateInstance(String)} instead
+     * @param username Username of currently logged in user
+     */
     private User(String username) {
         this.username = username;
         this.albumList = new ArrayList<>();
@@ -41,13 +45,17 @@ public class User implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    public static synchronized void generateInstance(String username) {
+    /**
+     * Uses the Singleton pattern to only allow one User to exist at a time
+     * @param username Username of currently logged in user
+     */
+    public synchronized static void generateInstance(String username) {
         if (isGenerated) return;
         isGenerated = true;
         instance = readUser(username);
     }
 
-    public static synchronized User getInstance() {
+    public static User getInstance() {
         return instance;
     }
 

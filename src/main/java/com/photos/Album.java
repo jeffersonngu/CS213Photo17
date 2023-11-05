@@ -11,7 +11,7 @@ public class Album implements Serializable {
 
     private final List<Photo> photoList;
 
-    private final String name;
+    private String name;
 
     public Album(String name) {
         photoList = new ArrayList<>();
@@ -23,4 +23,8 @@ public class Album implements Serializable {
     }
 
     public String getName() { return name; }
+
+    public void rename(String newName) {
+        if (!newName.isEmpty()) name = newName;
+    }
 }
