@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Photo implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -43,8 +44,15 @@ public class Photo implements Serializable {
 
     public void setCaption(String caption) {
         if (!caption.isEmpty()) this.caption = caption;
+        Photos.serializeData();
     }
 
+    /**
+     * Check for a given name-value tag pair.
+     * @param tagName The name of the tag
+     * @param tagValue The value associated with the name
+     * @return True if the photo contains the tag, otherwise false
+     */
     public boolean hasTag(String tagName, String tagValue) {
         return tags.getOrDefault(tagName, Collections.emptyList()).contains(tagValue);
     }
@@ -62,5 +70,14 @@ public class Photo implements Serializable {
         long time = in.readLong();
         lastModified = FileTime.from(time, TimeUnit.SECONDS);
         in.defaultReadObject();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Photo) {
+            return path.equals(((Photo) o).getPath());
+        } else {
+            return false;
+        }
     }
 }

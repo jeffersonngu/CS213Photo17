@@ -2,6 +2,7 @@ package com.photos;
 
 import com.photos.fxml.LogoutButton;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,19 @@ public class Photos extends Application {
     private static Album currentAlbum = null;
 
     public static void main(String[] args) {
+        /* We want to exit our program if any uncaught exception occurs */
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            throwable.printStackTrace();
+            Platform.exit();
+        });
+
+        try {
+            Path dir = Paths.get(STORE_DIR, User.STORE_DIR);
+            if (Files.notExists(dir)) Files.createDirectories(dir);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         usernames = readUsernames();
         launch(args);
     }
@@ -56,8 +70,8 @@ public class Photos extends Application {
     }
 
     /**
-     * Serializes all the data and saves the state of the application. Should be used during logout
-     * @see LogoutButton#LogoutButton()
+     * Serializes all the data and saves the state of the application.
+     * Controllers must call this function themselves after modifying data
      */
     public static void serializeData() {
         writeUsernames(usernames);
@@ -119,6 +133,7 @@ public class Photos extends Application {
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()));
                 List<String> list = (List<String>) ois.readObject();
+                ois.close();
                 return FXCollections.observableArrayList(list);
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);

@@ -34,8 +34,10 @@ public class AdminController implements Initializable {
     protected void onAddUser() {
         if (addUserField == null || addUserField.getText().isEmpty()) {
             addUserLabel.setText("Please enter a Username for this User!");
-        } else if (Photos.getUsernames().contains(addUserField.getText())) {
+        } else if (Photos.getUsernames().contains(addUserField.getText().toLowerCase())) {
             addUserLabel.setText("User already exists!");
+        } else if (addUserField.getText().toLowerCase().equals("admin")) {
+            addUserLabel.setText("Cannot add that username, reserved for admin!");
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");
             Photos.getUsernames().add(addUserField.getText());
@@ -51,7 +53,7 @@ public class AdminController implements Initializable {
         } else {
             deleteUserLabel.setText("Deleted " + selectedUser + "!");
             Photos.getUsernames().remove(selectedUser);
-            // TODO: Delete equivalent User as well
+            // TODO: Delete equivalent User as well (file.dat)
         }
     }
 

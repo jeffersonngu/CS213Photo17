@@ -26,6 +26,9 @@ public class LoginController {
     protected void onLogin() {
         if (usernameInput == null || usernameInput.getText().isEmpty()) {
             signinText.setText("Please input a username!");
+        } else if (!Photos.getUsernames().contains(usernameInput.getText().toLowerCase())
+            && !usernameInput.getText().toLowerCase().equals("admin")) { /* Invalid Login */
+            signinText.setText("Invalid username!");
         } else {
             String username = usernameInput.getText().toLowerCase();
             signinText.setText("Welcome " + username + "!");
@@ -37,13 +40,9 @@ public class LoginController {
             fadeTransition.setOnFinished(e -> {
                 if (username.equals("admin")) {
                     Photos.switchScene("admin.fxml");
-                } else if (Photos.getUsernames().contains(username)) {
+                } else {
                     User.generateInstance(username);
                     Photos.switchScene("album-list.fxml");
-                } else { /* Invalid Login */
-                    signinText.setText("Invalid username!");
-                    // TODO: Remove, leaving as a test
-                    Photos.switchScene("hello-view.fxml");
                 }
             });
             fadeTransition.play();
