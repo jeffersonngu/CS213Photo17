@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,14 @@ public class Photos extends Application {
     public static void switchScene(String fxmlFile) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Photos.class.getResource("fxml/" + fxmlFile));
-            mainStage.setScene(new Scene(fxmlLoader.load()));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            URL potentialCssResource = Photos.class.getResource("css/" + fxmlFile.substring(0, fxmlFile.lastIndexOf('.')) + ".css");
+            if (potentialCssResource != null) {
+                scene.getStylesheets().add(potentialCssResource.toExternalForm());
+            }
+
+            mainStage.setScene(scene);
             mainStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
