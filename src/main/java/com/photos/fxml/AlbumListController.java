@@ -1,8 +1,6 @@
 package com.photos.fxml;
 
-import com.photos.Album;
-import com.photos.Photos;
-import com.photos.User;
+import com.photos.*;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +16,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class AlbumListController implements Initializable {
@@ -46,6 +45,7 @@ public class AlbumListController implements Initializable {
         imageView.setFitHeight(100.0);
         imageView.setFitWidth(100.0);
         imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
+        imageView.setPickOnBounds(true);
         imageView.setOnMouseClicked(mouseEvent -> {
             Photos.setCurrentAlbum(album);
             Photos.switchScene("album.fxml");
@@ -53,10 +53,26 @@ public class AlbumListController implements Initializable {
 
         /* Title */
         Label label = new Label();
-        label.textProperty().bind(album.getObservableName());
+        label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
         BorderPane.setAlignment(label, Pos.CENTER);
         BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);
+
+        /* Bottom */
+        Label dateRange = new Label();
+        album.getPhotos().stream()
+                .min(Comparator.comparing(Photo::getLastModified))
+                .ifPresent(photoMinDate -> album.getPhotos().stream()
+                        .max(Comparator.comparing(Photo::getLastModified))
+                        .ifPresent(photoMaxDate -> {
+                            if (photoMaxDate.equals(photoMinDate)) {
+                                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()));
+                            } else {
+                                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()) + "-"
+                                        + Utility.getDate(photoMaxDate.getLastModified()));
+                            }
+                        }));
+        BorderPane.setAlignment(dateRange, Pos.CENTER_LEFT);
 
         /* Context Menu */
         Label ellipsis = new Label("⋮");
@@ -66,7 +82,11 @@ public class AlbumListController implements Initializable {
         ContextMenu contextMenu = getContextMenu(album, borderPane);
         ellipsis.setOnMouseClicked(mouseEvent -> contextMenu.show(label, mouseEvent.getScreenX(), mouseEvent.getScreenY()));
         BorderPane.setAlignment(ellipsis, Pos.CENTER_RIGHT);
-        borderPane.setBottom(ellipsis);
+
+        BorderPane bottomLabels = new BorderPane();
+        bottomLabels.setLeft(dateRange);
+        bottomLabels.setRight(ellipsis);
+        borderPane.setBottom(bottomLabels);
 
         albumFlowPane.getChildren().add(borderPane);
     }
@@ -84,7 +104,7 @@ public class AlbumListController implements Initializable {
             infoImage.setFitHeight(25.0);
             infoImage.setPickOnBounds(true);
 
-            Tooltip helpTooltip = getHelpTooltip("""
+            Tooltip helpTooltip = Utility.getHelpTooltip("""
                 Give a new name to this album by inputting
                 it into the text-field""");
 
@@ -116,7 +136,7 @@ public class AlbumListController implements Initializable {
         infoImage.setFitHeight(25.0);
         infoImage.setPickOnBounds(true);
 
-        Tooltip helpTooltip = getHelpTooltip("""
+        Tooltip helpTooltip = Utility.getHelpTooltip("""
                 Give a name to the new empty album by inputting
                 it into the text-field""");
 
@@ -136,15 +156,6 @@ public class AlbumListController implements Initializable {
                 pause.play();
             }
         });
-    }
-
-    private static Tooltip getHelpTooltip(String tooltip) {
-        Tooltip helpTooltip = new Tooltip(tooltip);
-        helpTooltip.setShowDelay(Duration.ZERO);
-        helpTooltip.setShowDuration(Duration.INDEFINITE);
-        helpTooltip.setWrapText(true);
-        helpTooltip.setStyle("-fx-font-size: 16;");
-        return helpTooltip;
     }
 
     @FXML

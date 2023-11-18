@@ -1,10 +1,15 @@
 package com.photos;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -21,6 +26,8 @@ public class User implements Serializable {
     private final String username;
     private final List<Album> albumList;
 
+    private transient ObservableList<String> tagList;
+
     /**
      * Use {@link #generateInstance(String)} instead
      * @param username Username of currently logged in user
@@ -28,6 +35,7 @@ public class User implements Serializable {
     private User(String username) {
         this.username = username;
         this.albumList = new PhotosSerializableArrayList<>();
+        this.tagList = FXCollections.observableArrayList(Arrays.asList("location", "person"));
     }
 
     public String getUsername() {
@@ -37,6 +45,8 @@ public class User implements Serializable {
     public List<Album> getAlbums() {
         return albumList;
     }
+
+    public ObservableList<String> getTagList() { return tagList; }
 
     public List<Photo> searchPhotos(Predicate<Photo> predicate) {
         return albumList.stream()
@@ -61,6 +71,18 @@ public class User implements Serializable {
 
     public static void deleteInstance() {
         instance = null;
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeObject(new ArrayList<>(tagList));
+        out.defaultWriteObject();
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        tagList = FXCollections.observableArrayList((List<String>) in.readObject());
+        in.defaultReadObject();
     }
 
     public static void writeUser() {

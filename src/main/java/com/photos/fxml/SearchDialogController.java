@@ -21,13 +21,13 @@ public class SearchDialogController {
     public DatePicker date2;
 
     @FXML
-    public TextField tag1_1;
+    public ChoiceBox<String> tag1_1;
 
     @FXML
     public TextField tag1_2;
 
     @FXML
-    public TextField tag2_1;
+    public ChoiceBox<String> tag2_1;
 
     @FXML
     public TextField tag2_2;

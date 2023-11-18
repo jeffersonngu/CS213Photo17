@@ -4,7 +4,9 @@ import com.photos.Photo;
 import com.photos.Photos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -12,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.io.IOException;
 
 public class PhotosDisplay {
 
@@ -25,6 +29,7 @@ public class PhotosDisplay {
         imageView.setFitHeight(100.0);
         imageView.setFitWidth(100.0);
         imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
+        imageView.setPickOnBounds(true);
         imageView.setOnMouseClicked(mouseEvent -> {
             // TODO: Open image
         });
@@ -52,7 +57,8 @@ public class PhotosDisplay {
         // TODO: Add MenuItems
         MenuItem addTag = new MenuItem("Add Tag");
         addTag.setOnAction(actionEvent -> {
-
+            AddTagDialog addTagDialog = new AddTagDialog(photo);
+            addTagDialog.showAndWait();
         });
         return new ContextMenu(addTag);
     }

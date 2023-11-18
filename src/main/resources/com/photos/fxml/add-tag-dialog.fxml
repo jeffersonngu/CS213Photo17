@@ -12,7 +12,7 @@
     <GridPane hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1" prefWidth="-1" vgap="10">
       <children>
         <Label text="Tag" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-        <TextField fx:id="tag1" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <ComboBox fx:id="tag1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
         <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
         <TextField fx:id="tag2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
       </children>

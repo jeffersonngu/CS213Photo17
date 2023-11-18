@@ -36,7 +36,7 @@ public class AdminController implements Initializable {
             addUserLabel.setText("Please enter a Username for this User!");
         } else if (Photos.getUsernames().contains(addUserField.getText().toLowerCase())) {
             addUserLabel.setText("User already exists!");
-        } else if (addUserField.getText().toLowerCase().equals("admin")) {
+        } else if (addUserField.getText().equalsIgnoreCase("admin")) {
             addUserLabel.setText("Cannot add that username, reserved for admin!");
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");

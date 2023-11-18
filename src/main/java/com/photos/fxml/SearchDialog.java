@@ -2,20 +2,25 @@ package com.photos.fxml;
 
 import com.photos.Photo;
 import com.photos.User;
-import javafx.fxml.FXML;
+import com.photos.Utility;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 public class SearchDialog extends Dialog<List<Photo>> {
 
-    private SearchDialogController searchDialogController;
+    private final SearchDialogController searchDialogController;
 
     public SearchDialog() {
         super();
@@ -38,12 +43,20 @@ public class SearchDialog extends Dialog<List<Photo>> {
         infoImage.setFitHeight(25.0);
         infoImage.setPickOnBounds(true);
 
-        Tooltip helpTooltip = getHelpTooltip();
+        Tooltip helpTooltip = Utility.getHelpTooltip("""
+                Search all photos based on 2 name-value tags and a date range
+                Use AND/OR to combine the next filters, or SKIP to ignore
+                If a tag or date range is left empty, it will be ignored
+                Tags are not case sensitive
+                If everything is left empty, will show all photos""");
         Tooltip.install(infoImage, helpTooltip);
 
         setGraphic(infoImage);
 
         getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        searchDialogController.tag1_1.setItems(User.getInstance().getTagList());
+        searchDialogController.tag2_1.setItems(User.getInstance().getTagList());
 
         /* Set results */
         setResultConverter(dialogButton -> {
@@ -55,31 +68,17 @@ public class SearchDialog extends Dialog<List<Photo>> {
         });
     }
 
-    private static Tooltip getHelpTooltip() {
-        Tooltip helpTooltip = new Tooltip("""
-                Search all photos based on 2 name-value tags and a date range
-                Use AND/OR to combine the next filters, or SKIP to ignore
-                If a tag or date range is left empty, it will be ignored
-                If everything is left empty, will show all photos""");
-        helpTooltip.setShowDelay(Duration.ZERO);
-        helpTooltip.setShowDuration(Duration.INDEFINITE);
-        // helpTooltip.prefWidth(300);
-        helpTooltip.setWrapText(true);
-        helpTooltip.setStyle("-fx-font-size: 16;");
-        return helpTooltip;
-    }
-
     private Predicate<Photo> getSearchPredicate() {
         Predicate<Photo> result = p -> true;
 
-        if (!searchDialogController.tag1_1.getText().isEmpty() && !searchDialogController.tag1_2.getText().isEmpty()) {
+        if (!searchDialogController.tag1_1.getValue().isEmpty() && !searchDialogController.tag1_2.getText().isEmpty()) {
             result = combinePredicate(result, "AND",
-                    photo -> photo.hasTag(searchDialogController.tag1_1.getText(), searchDialogController.tag1_1.getText()));
+                    photo -> photo.hasTag(searchDialogController.tag1_1.getValue(), searchDialogController.tag1_2.getText()));
         }
 
-        if (!searchDialogController.tag2_1.getText().isEmpty() && !searchDialogController.tag2_2.getText().isEmpty()) {
+        if (!searchDialogController.tag2_1.getValue().isEmpty() && !searchDialogController.tag2_2.getText().isEmpty()) {
             result = combinePredicate(result, (String) searchDialogController.combination1.getValue(),
-                    photo -> photo.hasTag(searchDialogController.tag1_1.getText(), searchDialogController.tag1_1.getText()));
+                    photo -> photo.hasTag(searchDialogController.tag2_1.getValue(), searchDialogController.tag2_2.getText()));
         }
 
         if (searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null) {
@@ -94,13 +93,10 @@ public class SearchDialog extends Dialog<List<Photo>> {
     }
 
     private Predicate<Photo> combinePredicate(Predicate<Photo> predicate1, String operator, Predicate<Photo> predicate2) {
-        switch (operator) {
-            case "AND":
-                return predicate1.and(predicate2);
-            case "OR":
-                return predicate1.or(predicate2);
-            default: /* Default is "SKIP" */
-                return predicate1;
-        }
+        return switch (operator) {
+            case "AND" -> predicate1.and(predicate2);
+            case "OR" -> predicate1.or(predicate2);
+            default -> predicate1; /* Default is "SKIP" */
+        };
     }
 }

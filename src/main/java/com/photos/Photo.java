@@ -47,6 +47,15 @@ public class Photo implements Serializable {
         Photos.serializeData();
     }
 
+    public void addTag(String tag1, String tag2) {
+        List<String> val = tags.get(tag1);
+        if (val == null) {
+            tags.put(tag1, new ArrayList<>(Collections.singletonList(tag2)));
+        } else {
+            val.add(tag2);
+        }
+    }
+
     /**
      * Check for a given name-value tag pair.
      * @param tagName The name of the tag
