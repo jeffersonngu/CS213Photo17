@@ -41,21 +41,21 @@
              GridPane.valignment="CENTER"/>
       <DatePicker fx:id="date2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER"
                   GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
-      <ChoiceBox fx:id="combination1" value="SKIP" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+      <ChoiceBox fx:id="combination1" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER"
                  GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <items>
           <FXCollections fx:factory="observableArrayList">
-            <String fx:value="SKIP"/>
+            <String fx:value="IGNORE" />
             <String fx:value="AND"/>
             <String fx:value="OR"/>
           </FXCollections>
         </items>
       </ChoiceBox>
-      <ChoiceBox fx:id="combination2" value="SKIP" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+      <ChoiceBox fx:id="combination2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER"
                  GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <items>
           <FXCollections fx:factory="observableArrayList">
-            <String fx:value="SKIP"/>
+            <String fx:value="IGNORE" />
             <String fx:value="AND"/>
             <String fx:value="OR"/>
           </FXCollections>

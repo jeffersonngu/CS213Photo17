@@ -12,7 +12,7 @@ import java.util.Collection;
 public class PhotosSerializableArrayList<E> extends ArrayList<E> implements Serializable {
 
     @Serial
-    private transient final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public PhotosSerializableArrayList(int initialCapacity) {
         super(initialCapacity);

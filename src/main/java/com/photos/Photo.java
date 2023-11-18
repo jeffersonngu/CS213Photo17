@@ -54,6 +54,7 @@ public class Photo implements Serializable {
         } else {
             val.add(tag2);
         }
+        Photos.serializeData();
     }
 
     /**

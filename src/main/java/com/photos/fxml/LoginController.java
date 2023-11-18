@@ -27,7 +27,7 @@ public class LoginController {
         if (usernameInput == null || usernameInput.getText().isEmpty()) {
             signinText.setText("Please input a username!");
         } else if (!Photos.getUsernames().contains(usernameInput.getText().toLowerCase())
-            && !usernameInput.getText().toLowerCase().equals("admin")) { /* Invalid Login */
+            && !usernameInput.getText().equalsIgnoreCase("admin")) { /* Invalid Login */
             signinText.setText("Invalid username!");
         } else {
             String username = usernameInput.getText().toLowerCase();
@@ -51,7 +51,7 @@ public class LoginController {
 
     /**
      * Allows user to hit "Enter" key to login instead of Login button
-     * @param event
+     * @param event Keyboard event
      */
     @FXML
     protected void onUsernameKeyPressed(KeyEvent event) {

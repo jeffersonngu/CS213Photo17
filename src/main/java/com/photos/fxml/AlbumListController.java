@@ -1,7 +1,6 @@
 package com.photos.fxml;
 
 import com.photos.*;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -116,9 +114,18 @@ public class AlbumListController implements Initializable {
 
         MenuItem delete = new MenuItem("Delete");
         delete.setOnAction(actionEvent -> {
-            // TODO: Confirmation window
-            User.getInstance().getAlbums().remove(album);
-            albumFlowPane.getChildren().remove(borderPane);
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setGraphic(null);
+            confirmation.setTitle("Delete Album Confirmation");
+            confirmation.setHeaderText("Are you sure you want to delete album: " + album.getName());
+            confirmation.setContentText(null);
+            confirmation.showAndWait().ifPresent(buttonType -> {
+               if (buttonType == ButtonType.OK) {
+                   User.getInstance().getAlbums().remove(album);
+                   albumFlowPane.getChildren().remove(borderPane);
+                   Utility.displayStatusMessage(message, "Successfully deleted album: " + album.getName());
+               }
+            });
         });
 
         return new ContextMenu(rename, delete);
@@ -148,12 +155,8 @@ public class AlbumListController implements Initializable {
             if (!User.getInstance().getAlbums().contains(album)) {
                 User.getInstance().getAlbums().add(album);
                 displayAlbum(album);
-            } else { /* Not working */
-                message.setTextFill(Color.color(1.0, 0.0, 0.0));
-                message.setText("Cannot create album, an album already exists with that name!");
-                PauseTransition pause = new PauseTransition(Duration.seconds(5));
-                pause.setOnFinished(e -> message.setText(null));
-                pause.play();
+            } else {
+                Utility.displayErrorMessage(message, "Cannot create album, an album already exists with that name!");
             }
         });
     }

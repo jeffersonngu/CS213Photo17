@@ -1,13 +1,17 @@
 package com.photos.fxml;
 
 import com.photos.Photos;
+import com.photos.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -40,7 +44,6 @@ public class AdminController implements Initializable {
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");
             Photos.getUsernames().add(addUserField.getText());
-            // TODO: Create equivalent User as well
         }
     }
 
@@ -52,7 +55,11 @@ public class AdminController implements Initializable {
         } else {
             deleteUserLabel.setText("Deleted " + selectedUser + "!");
             Photos.getUsernames().remove(selectedUser);
-            // TODO: Delete equivalent User as well (file.dat)
+            try {
+                Files.deleteIfExists(Paths.get(Photos.STORE_DIR, User.STORE_DIR, selectedUser + ".dat"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

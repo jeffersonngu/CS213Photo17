@@ -3,7 +3,6 @@ package com.photos;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Album implements Serializable {
@@ -43,7 +42,7 @@ public class Album implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Album) {
-            return this.getName().toLowerCase().equals(((Album) o).getName().toLowerCase());
+            return this.getName().equalsIgnoreCase(((Album) o).getName());
         } else {
             return false;
         }

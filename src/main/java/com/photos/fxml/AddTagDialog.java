@@ -37,7 +37,7 @@ public class AddTagDialog extends Dialog<Void> {
         Tooltip helpTooltip = Utility.getHelpTooltip("""
                 Add a new name-value tag for the selected Photo
                 Note, if the name of the tag was not listed
-                It will generate a new type of tag permanently"""); // TODO: Not permanently
+                It will generate a new type of tag permanently""");
         Tooltip.install(infoImage, helpTooltip);
 
         setGraphic(infoImage);
@@ -50,11 +50,15 @@ public class AddTagDialog extends Dialog<Void> {
         /* Set results */
         setResultConverter(dialogButton -> {
             ButtonBar.ButtonData data = dialogButton == null ? null : dialogButton.getButtonData();
-            if (data == ButtonBar.ButtonData.OK_DONE
-                    && !addTagDialogController.tag1.getValue().isBlank()
-                    && !addTagDialogController.tag2.getText().isBlank()) {
-                photo.addTag(addTagDialogController.tag1.getValue(), addTagDialogController.tag2.getText());
-                User.getInstance().getTagList().add(addTagDialogController.tag1.getValue()); /* Only add the new tag if we have a valid tag */
+            if (data == ButtonBar.ButtonData.OK_DONE) {
+                String tag1 = addTagDialogController.tag1.getValue();
+                String tag2 = addTagDialogController.tag2.getText();
+                if (tag1 != null && !tag1.isBlank() && !tag2.isBlank()) {
+                    photo.addTag(tag1, tag2);
+                    if (!User.getInstance().getTagList().contains(tag1)) {
+                        User.getInstance().getTagList().add(tag1);
+                    }
+                }
             }
             return null;
         });

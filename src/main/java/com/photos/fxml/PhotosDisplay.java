@@ -2,20 +2,14 @@ package com.photos.fxml;
 
 import com.photos.Photo;
 import com.photos.Photos;
-import javafx.event.ActionEvent;
+import com.photos.Utility;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.io.IOException;
 
 public class PhotosDisplay {
 
@@ -54,17 +48,43 @@ public class PhotosDisplay {
     }
 
     protected ContextMenu getContextMenu(Photo photo, BorderPane borderPane) {
-        // TODO: Add MenuItems
+        MenuItem setCaption = new MenuItem("Set Caption");
+        setCaption.setOnAction(actionEvent -> {
+            TextInputDialog inputDialog = new TextInputDialog();
+            inputDialog.setTitle("Caption Photo");
+            inputDialog.setHeaderText("Give a caption for the photo");
+            inputDialog.setContentText("Caption:");
+            inputDialog.getEditor().setText(photo.getCaption());
+
+            ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
+            infoImage.setFitWidth(25.0);
+            infoImage.setFitHeight(25.0);
+            infoImage.setPickOnBounds(true);
+
+            Tooltip helpTooltip = Utility.getHelpTooltip("""
+                    Edit the photo's caption by inputting
+                    it into the text-field""");
+
+            Tooltip.install(infoImage, helpTooltip);
+            inputDialog.setGraphic(infoImage);
+
+            inputDialog.showAndWait().ifPresent(photo::setCaption);
+        });
+
         MenuItem addTag = new MenuItem("Add Tag");
         addTag.setOnAction(actionEvent -> {
             AddTagDialog addTagDialog = new AddTagDialog(photo);
             addTagDialog.showAndWait();
         });
-        return new ContextMenu(addTag);
+
+        MenuItem copyToAlbum = new MenuItem("Copy to Album");
+        // TODO: This
+
+        return new ContextMenu(setCaption, addTag);
     }
 
     @FXML
-    protected void onReturnToAlbums(ActionEvent actionEvent) {
+    protected void onReturnToAlbums() {
         Photos.switchScene("album-list.fxml");
     }
 }

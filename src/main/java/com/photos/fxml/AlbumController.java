@@ -3,16 +3,16 @@ package com.photos.fxml;
 import com.photos.Photo;
 import com.photos.Photos;
 import com.photos.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,7 +28,7 @@ public class AlbumController extends PhotosDisplay implements Initializable {
     }
 
     @FXML
-    protected void onAddPhoto(ActionEvent actionEvent) {
+    protected void onAddPhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
@@ -46,5 +46,13 @@ public class AlbumController extends PhotosDisplay implements Initializable {
                 displayPhoto(matchedPhoto);
             } // TODO: Status message that says it couldn't add the photo?
         }
+    }
+
+    @Override
+    protected ContextMenu getContextMenu(Photo photo, BorderPane borderPane) {
+        ContextMenu contextMenu = super.getContextMenu(photo, borderPane);
+
+
+        return contextMenu;
     }
 }

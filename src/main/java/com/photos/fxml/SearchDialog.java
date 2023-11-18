@@ -41,7 +41,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
 
         Tooltip helpTooltip = Utility.getHelpTooltip("""
                 Search all photos based on 2 name-value tags and a date range
-                Use AND/OR to combine the next filters, or SKIP to ignore
+                Use AND/OR to combine the next filters, or IGNORE to ignore
                 If a tag or date range is left empty, it will be ignored
                 Tags are not case sensitive
                 If everything is left empty, will show all photos""");
@@ -53,6 +53,16 @@ public class SearchDialog extends Dialog<List<Photo>> {
 
         searchDialogController.tag1_1.setItems(User.getInstance().getTagList());
         searchDialogController.tag2_1.setItems(User.getInstance().getTagList());
+
+        searchDialogController.date1.setEditable(false); /* JavaFX will crash if anything is in the box that is not a date */
+        searchDialogController.date2.setEditable(false);
+
+        searchDialogController.tag1_1.valueProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
+        searchDialogController.tag1_2.textProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
+        searchDialogController.tag2_1.valueProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
+        searchDialogController.tag2_2.textProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
+        searchDialogController.date1.valueProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
+        searchDialogController.date2.valueProperty().addListener((observable, oldValue, newValue) -> updateVisibility());
 
         /* Set results */
         setResultConverter(dialogButton -> {
@@ -67,23 +77,21 @@ public class SearchDialog extends Dialog<List<Photo>> {
     private Predicate<Photo> getSearchPredicate() {
         Predicate<Photo> result = p -> true;
 
-        if (!searchDialogController.tag1_1.getValue().isEmpty() && !searchDialogController.tag1_2.getText().isEmpty()) {
+        if (searchDialogController.tag1_1.getValue() != null && !searchDialogController.tag1_2.getText().isBlank()) {
             result = combinePredicate(result, "AND",
                     photo -> photo.hasTag(searchDialogController.tag1_1.getValue(), searchDialogController.tag1_2.getText()));
         }
 
-        if (!searchDialogController.tag2_1.getValue().isEmpty() && !searchDialogController.tag2_2.getText().isEmpty()) {
-            result = combinePredicate(result, (String) searchDialogController.combination1.getValue(),
+        if (searchDialogController.tag2_1.getValue() != null && !searchDialogController.tag2_2.getText().isBlank()) {
+            result = combinePredicate(result, searchDialogController.combination1.getValue(),
                     photo -> photo.hasTag(searchDialogController.tag2_1.getValue(), searchDialogController.tag2_2.getText()));
         }
 
         if (searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null) {
-            result = combinePredicate(result, (String) searchDialogController.combination2.getValue(),
+            result = combinePredicate(result, searchDialogController.combination2.getValue(),
                     photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
                             && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay());
         }
-
-        // TODO: Set it up so that the choice boxes only show up on two inputs or more + only behind the 2nd/3rd one otherwise setting to OR breaks it
 
         return result;
     }
@@ -92,7 +100,29 @@ public class SearchDialog extends Dialog<List<Photo>> {
         return switch (operator) {
             case "AND" -> predicate1.and(predicate2);
             case "OR" -> predicate1.or(predicate2);
-            default -> predicate1; /* Default is "SKIP" */
+            default -> predicate1; /* Default is to not consider */
         };
+    }
+
+    private void updateVisibility() {
+        boolean tag1Active = searchDialogController.tag1_1.getValue() != null && !searchDialogController.tag1_2.getText().isBlank();
+        boolean tag2Active = searchDialogController.tag2_1.getValue() != null && !searchDialogController.tag2_2.getText().isBlank();
+        boolean dateActive = searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null;
+
+        if (tag1Active && tag2Active) {
+            searchDialogController.combination1.setVisible(true);
+            searchDialogController.combination1.setValue("AND");
+        } else {
+            searchDialogController.combination1.setVisible(false);
+            searchDialogController.combination1.setValue("OR");
+        }
+
+        if ((tag1Active || tag2Active) && dateActive) {
+            searchDialogController.combination2.setVisible(true);
+            searchDialogController.combination2.setValue("AND");
+        } else {
+            searchDialogController.combination2.setVisible(false);
+            searchDialogController.combination2.setValue("OR");
+        }
     }
 }

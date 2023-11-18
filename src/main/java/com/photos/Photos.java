@@ -1,6 +1,5 @@
 package com.photos;
 
-import com.photos.fxml.LogoutButton;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -11,7 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class Photos extends Application {
     /**
      * Saves a list of known usernames. Required since {@link ObservableList} is not serializable
      *
-     * @param list
+     * @param list List of usernames
      * @see Photos#readUsernames()
      */
     public static void writeUsernames(ObservableList<String> list) {
@@ -135,6 +136,7 @@ public class Photos extends Application {
      * @return The {@link ObservableList} of usernames
      * @see Photos#writeUsernames(ObservableList)
      */
+    @SuppressWarnings("unchecked")
     public static ObservableList<String> readUsernames() {
         Path path = Paths.get(STORE_DIR, STORE_USERNAMES);
         if (Files.exists(path)) {

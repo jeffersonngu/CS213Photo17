@@ -8,10 +8,10 @@ import javafx.scene.control.TextField;
 public class SearchDialogController {
 
     @FXML
-    public ChoiceBox<?> combination1;
+    public ChoiceBox<String> combination1;
 
     @FXML
-    public ChoiceBox<?> combination2;
+    public ChoiceBox<String> combination2;
 
     @FXML
     public DatePicker date1;
