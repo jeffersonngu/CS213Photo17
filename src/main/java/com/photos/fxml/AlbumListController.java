@@ -127,8 +127,8 @@ public class AlbumListController implements Initializable {
         inputDialog.setGraphic(infoImage);
 
         inputDialog.showAndWait().ifPresent(s -> {
-            if (s.isEmpty()) {
-                Utility.displayErrorMessage(message, "Cannot create album, album name is empty!");
+            if (s.isBlank()) {
+                Utility.displayErrorMessage(message, "Cannot create album, album name is blank!");
             } else if (!Utility.isUniqueAlbumName(s)) {
                 Utility.displayErrorMessage(message, "Cannot create album, an album already exists with that name!");
             }
