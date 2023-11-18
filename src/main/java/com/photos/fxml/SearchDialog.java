@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -34,19 +33,12 @@ public class SearchDialog extends Dialog<List<Photo>> {
         setTitle("Search Photos");
         setHeaderText("Search for a photo based on tags or dates");
 
-        ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
-        infoImage.setFitWidth(25.0);
-        infoImage.setFitHeight(25.0);
-        infoImage.setPickOnBounds(true);
-
-        Tooltip helpTooltip = Utility.getHelpTooltip("""
+        ImageView infoImage = Utility.generateInformationGraphic("""
                 Search all photos based on 2 name-value tags and a date range
                 Use AND/OR to combine the next filters, or IGNORE to ignore
                 If a tag or date range is left empty, it will be ignored
                 Tags are not case sensitive
                 If everything is left empty, will show all photos""");
-        Tooltip.install(infoImage, helpTooltip);
-
         setGraphic(infoImage);
 
         getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);

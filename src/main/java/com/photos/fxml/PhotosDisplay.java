@@ -18,12 +18,7 @@ public class PhotosDisplay {
 
     protected void displayPhoto(Photo photo) {
         ImageView imageView = new ImageView(photo.getPath().toUri().toString());
-        imageView.prefHeight(100.0);
-        imageView.prefWidth(100.0);
-        imageView.setFitHeight(100.0);
-        imageView.setFitWidth(100.0);
-        imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
-        imageView.setPickOnBounds(true);
+        Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {
             // TODO: Open image
         });
@@ -55,18 +50,8 @@ public class PhotosDisplay {
             inputDialog.setHeaderText("Give a caption for the photo");
             inputDialog.setContentText("Caption:");
             inputDialog.getEditor().setText(photo.getCaption());
-
-            ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
-            infoImage.setFitWidth(25.0);
-            infoImage.setFitHeight(25.0);
-            infoImage.setPickOnBounds(true);
-
-            Tooltip helpTooltip = Utility.getHelpTooltip("""
-                    Edit the photo's caption by inputting
-                    it into the text-field""");
-
-            Tooltip.install(infoImage, helpTooltip);
-            inputDialog.setGraphic(infoImage);
+            
+            inputDialog.setGraphic(null);
 
             inputDialog.showAndWait().ifPresent(photo::setCaption);
         });
@@ -78,7 +63,9 @@ public class PhotosDisplay {
         });
 
         MenuItem copyToAlbum = new MenuItem("Copy to Album");
-        // TODO: This
+        copyToAlbum.setOnAction(actionEvent -> {
+
+        });
 
         return new ContextMenu(setCaption, addTag);
     }

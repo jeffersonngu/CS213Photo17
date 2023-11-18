@@ -34,9 +34,18 @@ public class Album implements Serializable {
 
     public String getName() { return name.get(); }
 
-    public void rename(String newName) {
-        if (!newName.isEmpty()) name.set(newName);
-        Photos.serializeData();
+    /**
+     * Attempts to rename the album, blank or already existing names will fail
+     * @param newName The new name of the album
+     * @return Whether rename operation was successful
+     */
+    public boolean rename(String newName) {
+        if (!newName.isBlank() && Utility.isUniqueAlbumName(getName(), newName)) {
+            name.set(newName);
+            Photos.serializeData();
+            return true;
+        }
+        return false;
     }
 
     @Override

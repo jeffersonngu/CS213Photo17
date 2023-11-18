@@ -9,12 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class AlbumListController implements Initializable {
@@ -38,12 +35,7 @@ public class AlbumListController implements Initializable {
             imageView = new ImageView(album.getPhotos().get(album.getPhotos().size() - 1).getPath().toUri().toString());
         }
 
-        imageView.prefHeight(100.0);
-        imageView.prefWidth(100.0);
-        imageView.setFitHeight(100.0);
-        imageView.setFitWidth(100.0);
-        imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
-        imageView.setPickOnBounds(true);
+        Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {
             Photos.setCurrentAlbum(album);
             Photos.switchScene("album.fxml");
@@ -58,27 +50,18 @@ public class AlbumListController implements Initializable {
 
         /* Bottom */
         Label dateRange = new Label();
-        album.getPhotos().stream()
-                .min(Comparator.comparing(Photo::getLastModified))
-                .ifPresent(photoMinDate -> album.getPhotos().stream()
-                        .max(Comparator.comparing(Photo::getLastModified))
-                        .ifPresent(photoMaxDate -> {
-                            if (photoMaxDate.equals(photoMinDate)) {
-                                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()));
-                            } else {
-                                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()) + "-"
-                                        + Utility.getDate(photoMaxDate.getLastModified()));
-                            }
-                        }));
+        Utility.albumDateRange(album, (photoMinDate, photoMaxDate) -> {
+            if (photoMaxDate.equals(photoMinDate)) {
+                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()));
+            } else {
+                dateRange.setText(Utility.getDate(photoMinDate.getLastModified()) + "-"
+                        + Utility.getDate(photoMaxDate.getLastModified()));
+            }
+        });
         BorderPane.setAlignment(dateRange, Pos.CENTER_LEFT);
 
         /* Context Menu */
-        Label ellipsis = new Label("⋮");
-        ellipsis.setFont(Font.font(15));
-        ellipsis.setStyle("-fx-background-color: #E0E0E0;");
-        ellipsis.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, new BorderWidths(1))));
-        ContextMenu contextMenu = getContextMenu(album, borderPane);
-        ellipsis.setOnMouseClicked(mouseEvent -> contextMenu.show(label, mouseEvent.getScreenX(), mouseEvent.getScreenY()));
+        Label ellipsis = Utility.generateEllipsisMenu(getContextMenu(album, borderPane));
         BorderPane.setAlignment(ellipsis, Pos.CENTER_RIGHT);
 
         BorderPane bottomLabels = new BorderPane();
@@ -95,21 +78,19 @@ public class AlbumListController implements Initializable {
             TextInputDialog inputDialog = new TextInputDialog();
             inputDialog.setTitle("Rename Album");
             inputDialog.setHeaderText("Enter the new name of this album");
-            inputDialog.setContentText("Name:");
+            inputDialog.setContentText("New Name:");
+            inputDialog.getEditor().setText(album.getName());
 
-            ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
-            infoImage.setFitWidth(25.0);
-            infoImage.setFitHeight(25.0);
-            infoImage.setPickOnBounds(true);
-
-            Tooltip helpTooltip = Utility.getHelpTooltip("""
+            ImageView infoImage = Utility.generateInformationGraphic("""
                 Give a new name to this album by inputting
-                it into the text-field""");
-
-            Tooltip.install(infoImage, helpTooltip);
+                    it into the text-field.
+                Note that blank or already existing album names are
+                    not allowed""");
             inputDialog.setGraphic(infoImage);
 
-            inputDialog.showAndWait().ifPresent(album::rename);
+            inputDialog.showAndWait().ifPresent(s -> { /* May get weird messages like cannot rename album test to test but that is fine */
+                if (!album.rename(s)) Utility.displayErrorMessage(message, "Cannot rename album " + album.getName() + " to " + s);
+            });
         });
 
         MenuItem delete = new MenuItem("Delete");
@@ -138,21 +119,16 @@ public class AlbumListController implements Initializable {
         inputDialog.setHeaderText("Enter the name of the new album");
         inputDialog.setContentText("Name:");
 
-        ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
-        infoImage.setFitWidth(25.0);
-        infoImage.setFitHeight(25.0);
-        infoImage.setPickOnBounds(true);
-
-        Tooltip helpTooltip = Utility.getHelpTooltip("""
+        ImageView infoImage = Utility.generateInformationGraphic("""
                 Give a name to the new empty album by inputting
-                it into the text-field""");
-
-        Tooltip.install(infoImage, helpTooltip);
+                it into the text-field
+                Note that blank or already existing album names are
+                    not allowed""");
         inputDialog.setGraphic(infoImage);
 
         inputDialog.showAndWait().ifPresent(s -> {
-            Album album = new Album(s);
-            if (!User.getInstance().getAlbums().contains(album)) {
+            if (Utility.isUniqueAlbumName(s)) {
+                Album album = new Album(s);
                 User.getInstance().getAlbums().add(album);
                 displayAlbum(album);
             } else {
