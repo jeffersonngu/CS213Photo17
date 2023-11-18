@@ -8,5 +8,5 @@ application up and running.
 From the root of the repository, run the following:
 
 ```bash
-$ javac -d bin src/main/java/com/photos/**/*.java && java -cp bin:src/resources/ com.photos.Photos
+$ javac -d bin -cp src/main/java -sourcepath src/main/java src/main/java/module-info.java $(find src/main/java -name "*.java")  -cp src/main/resources
 ```
