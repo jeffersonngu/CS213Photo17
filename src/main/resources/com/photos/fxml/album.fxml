@@ -6,8 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 
+<?import javafx.scene.control.ScrollPane?>
 <AnchorPane prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.AlbumController">
-  <FlowPane fx:id="photoFlowPane" layoutX="67.0" layoutY="51.0" prefHeight="236.0" prefWidth="577.0" hgap="10" vgap="10" />
+  <ScrollPane layoutX="67.0" layoutY="51.0" prefHeight="236.0" fitToWidth="true">
+    <FlowPane fx:id="photoFlowPane" hgap="10" prefHeight="236.0" prefWidth="577.0" vgap="10"/>
+  </ScrollPane>
   <LogoutButton layoutY="374.0" />
   <Button layoutX="670.0" layoutY="359.0" mnemonicParsing="false" onAction="#onAddPhoto" prefHeight="40.0" prefWidth="40.0" text="+" />
   <Button mnemonicParsing="false" onAction="#onReturnToAlbums" text="Albums" />
