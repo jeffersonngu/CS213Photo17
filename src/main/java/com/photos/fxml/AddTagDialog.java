@@ -26,8 +26,8 @@ public class AddTagDialog extends Dialog<Void> {
         }
 
         /* Load extras */
-        setTitle("Search Photos");
-        setHeaderText("Search for a photo based on tags or dates");
+        setTitle("Add tag");
+        setHeaderText("Tag the image using an existing tag, or create a new tag.");
 
         ImageView infoImage = new ImageView(String.valueOf(getClass().getResource("/com/photos/information-icon.png")));
         infoImage.setFitWidth(25.0);
