@@ -34,6 +34,7 @@ public class AlbumListController implements Initializable {
         } else {
             imageView = new ImageView(album.getPhotos().get(album.getPhotos().size() - 1).getPath().toUri().toString());
         }
+        BorderPane borderPane = new BorderPane(imageView);
 
         Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {
@@ -45,7 +46,6 @@ public class AlbumListController implements Initializable {
         Label label = new Label();
         label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
         BorderPane.setAlignment(label, Pos.CENTER);
-        BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);
 
         /* Bottom */

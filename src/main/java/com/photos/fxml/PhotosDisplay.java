@@ -64,10 +64,12 @@ public class PhotosDisplay {
 
         MenuItem copyToAlbum = new MenuItem("Copy to Album");
         copyToAlbum.setOnAction(actionEvent -> {
-
+            SelectAlbumDialog selectAlbumDialog = new SelectAlbumDialog(photo, "Copy to Album",
+                    "Pick one or more albums to copy the picture to", true);
+            selectAlbumDialog.showAndWait();
         });
 
-        return new ContextMenu(setCaption, addTag);
+        return new ContextMenu(setCaption, addTag, copyToAlbum);
     }
 
     @FXML

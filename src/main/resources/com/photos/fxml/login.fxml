@@ -6,16 +6,13 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.LoginController">
-   <TextField fx:id="usernameInput" layoutX="281.0" layoutY="175.0" onKeyPressed="#onUsernameKeyPressed"
-              promptText="Username"/>
-   <PasswordField layoutX="281.0" layoutY="217.0" promptText="Password (unused)"/>
-   <Button layoutX="333.0" layoutY="263.0" mnemonicParsing="false" onAction="#onLogin" text="Login"/>
-   <Label alignment="CENTER" layoutX="234.0" layoutY="67.0" text="Welcome!" textAlignment="CENTER"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <font>
-         <Font size="30.0"/>
-      </font>
-   </Label>
-   <Label fx:id="signinText" alignment="CENTER" layoutX="260.0" layoutY="135.0" text="Please Sign In!"
-          textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+  <TextField fx:id="usernameInput" layoutX="281.0" layoutY="175.0" onKeyPressed="#onUsernameKeyPressed" promptText="Username"/>
+  <PasswordField layoutX="281.0" layoutY="217.0" promptText="Password (unused)"/>
+  <Button layoutX="333.0" layoutY="263.0" mnemonicParsing="false" onAction="#onLogin" text="Login"/>
+  <Label alignment="CENTER" layoutX="234.0" layoutY="67.0" text="Welcome!" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <font>
+      <Font size="30.0"/>
+    </font>
+  </Label>
+  <Label fx:id="signinText" alignment="CENTER" layoutX="260.0" layoutY="135.0" text="Please Sign In!" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
 </AnchorPane>
