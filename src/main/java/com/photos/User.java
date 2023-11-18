@@ -1,6 +1,5 @@
 package com.photos;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -79,6 +78,7 @@ public class User implements Serializable {
         out.defaultWriteObject();
     }
 
+    @SuppressWarnings("unchecked")
     @Serial
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         tagList = FXCollections.observableArrayList((List<String>) in.readObject());

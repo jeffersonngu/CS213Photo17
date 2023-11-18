@@ -11,5 +11,5 @@
    <LogoutButton layoutY="374.0" />
    <Button layoutX="670.0" layoutY="359.0" mnemonicParsing="false" onAction="#onAddAlbum" prefHeight="40.0" prefWidth="40.0" text="+" />
    <Button layoutX="607.0" layoutY="2.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="25.0" prefWidth="103.0" text="Search" />
-   <Label fx:id="message" alignment="CENTER" layoutX="342.0" layoutY="27.0" text="" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <Label fx:id="message" alignment="CENTER" layoutX="342.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 </AnchorPane>

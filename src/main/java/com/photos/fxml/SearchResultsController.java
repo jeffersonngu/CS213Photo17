@@ -4,16 +4,21 @@ import com.photos.Album;
 import com.photos.Photo;
 import com.photos.Photos;
 import com.photos.User;
-import javafx.event.ActionEvent;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.List;
 
 public class SearchResultsController extends PhotosDisplay {
+
+    @FXML
+    private Label message;
 
     private List<Photo> searchResults;
 
@@ -23,7 +28,7 @@ public class SearchResultsController extends PhotosDisplay {
     }
 
     @FXML
-    protected void onSaveResults(ActionEvent actionEvent) {
+    protected void onSaveResults() {
         TextInputDialog inputDialog = new TextInputDialog();
         inputDialog.setTitle("Save Search Results to Album");
         inputDialog.setHeaderText("Enter the name of the new album");
@@ -41,11 +46,20 @@ public class SearchResultsController extends PhotosDisplay {
 
         inputDialog.showAndWait().ifPresent(s -> {
             Album album = new Album(s);
-            album.getPhotos().addAll(searchResults);
-            User.getInstance().getAlbums().add(album);
+            if (!User.getInstance().getAlbums().contains(album)) {
+                User.getInstance().getAlbums().add(album);
+                album.getPhotos().addAll(searchResults);
+                User.getInstance().getAlbums().add(album);
 
-            Photos.setCurrentAlbum(album);
-            Photos.switchScene("album.fxml");
+                Photos.setCurrentAlbum(album);
+                Photos.switchScene("album.fxml");
+            } else { /* Not working */
+                message.setTextFill(Color.color(1.0, 0.0, 0.0));
+                message.setText("Cannot create album, an album already exists with that name!");
+                PauseTransition pause = new PauseTransition(Duration.seconds(5));
+                pause.setOnFinished(e -> message.setText(null));
+                pause.play();
+            }
         });
     }
 

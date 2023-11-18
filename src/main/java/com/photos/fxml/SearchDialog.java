@@ -3,16 +3,12 @@ package com.photos.fxml;
 import com.photos.Photo;
 import com.photos.User;
 import com.photos.Utility;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

@@ -11,5 +11,5 @@
     <LogoutButton layoutY="374.0" />
     <Button layoutX="670.0" layoutY="359.0" mnemonicParsing="false" onAction="#onAddPhoto" prefHeight="40.0" prefWidth="40.0" text="+" />
     <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#onReturnToAlbums" text="Albums" />
-    <Label fx:id="albumLabel" alignment="CENTER" layoutX="337.0" layoutY="19.0" text="" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <Label fx:id="albumLabel" alignment="CENTER" layoutX="337.0" layoutY="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 </AnchorPane>
