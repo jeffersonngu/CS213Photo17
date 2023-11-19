@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.EditTagsController">
+  <Label layoutX="461.0" layoutY="39.0" text="Tags" />
+  <ListView fx:id="tagsListView" layoutX="252.0" layoutY="71.0" prefHeight="224.0" prefWidth="446.0" />
+  <Button layoutX="95.0" layoutY="250.0" mnemonicParsing="false" onAction="#onAddTag" text="Add Tag" />
+  <ComboBox fx:id="tag1" editable="true" layoutX="68.0" layoutY="158.0" maxWidth="180.0" promptText="Tag Type" />
+  <TextField fx:id="tag2" layoutX="68.0" layoutY="192.0" promptText="Tag Value" />
+  <Label fx:id="addTagLabel" layoutX="84.0" layoutY="118.0" text="Input a new tag" />
+  <Label fx:id="deleteTagLabel" layoutX="396.0" layoutY="307.0" text="Select a Tag from Above to Delete!" />
+  <Button layoutX="451.0" layoutY="341.0" mnemonicParsing="false" onAction="#onDeleteTag" text="Delete Tag" />
+  <CheckBox fx:id="multivalued" layoutX="9.0" layoutY="227.0" mnemonicParsing="false" text="New Tag detected, make it multivalued?" visible="false" />
+  <Label fx:id="warning" layoutX="3.0" layoutY="281.0" prefHeight="52.0" prefWidth="246.0" text="Warning: This tag is Single Valued, the new value will overwrite the existing one" textFill="#FFAF3D" visible="false" wrapText="true" />
+</AnchorPane>

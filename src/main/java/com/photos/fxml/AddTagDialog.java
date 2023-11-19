@@ -3,6 +3,7 @@ package com.photos.fxml;
 import com.photos.Photo;
 import com.photos.User;
 import com.photos.Utility;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -10,17 +11,19 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 
+@Deprecated
 public class AddTagDialog extends Dialog<Void> {
+
+    private final AddTagDialogController addTagDialogController;
 
     public AddTagDialog(Photo photo) {
         super();
 
         /* Load the fxml file */
-        AddTagDialogController addTagDialogController;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-tag-dialog.fxml"));
         try {
             setDialogPane(fxmlLoader.load());
-            addTagDialogController = fxmlLoader.getController();
+            this.addTagDialogController = fxmlLoader.getController();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -36,16 +39,19 @@ public class AddTagDialog extends Dialog<Void> {
 
         Tooltip helpTooltip = Utility.getHelpTooltip("""
                 Add a new name-value tag for the selected Photo
-                Note, if the name of the tag was not listed
-                It will generate a new type of tag permanently""");
+                Note, if the name of the tag was not listed,
+                    it will generate a new type of tag permanently
+                Tags will allow spaces and are case-sensitive
+                    (i.e. different capitalization results in different values)""");
         Tooltip.install(infoImage, helpTooltip);
 
         setGraphic(infoImage);
 
         getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        addTagDialogController.tag1.setItems(User.getInstance().getTagList());
+        addTagDialogController.tag1.setItems(FXCollections.observableArrayList(User.getInstance().getTagCollection()));
         addTagDialogController.tag1.setEditable(true);
+        addTagDialogController.tag1.valueProperty().addListener((observable, oldValue, newValue) -> listenTag());
 
         /* Set results */
         setResultConverter(dialogButton -> {
@@ -55,12 +61,17 @@ public class AddTagDialog extends Dialog<Void> {
                 String tag2 = addTagDialogController.tag2.getText();
                 if (tag1 != null && !tag1.isBlank() && !tag2.isBlank()) {
                     photo.addTag(tag1, tag2);
-                    if (!User.getInstance().getTagList().contains(tag1)) {
-                        User.getInstance().getTagList().add(tag1);
+                    if (!User.getInstance().getTagCollection().contains(tag1)) {
+                        User.getInstance().getTagMap().put(tag1, true);
                     }
                 }
             }
             return null;
         });
+    }
+
+    private void listenTag() {
+        String value = addTagDialogController.tag1.getValue();
+        if (value == null) return;
     }
 }

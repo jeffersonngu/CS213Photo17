@@ -2,13 +2,15 @@ package com.photos.fxml;
 
 import com.photos.Photo;
 import com.photos.Photos;
-import com.photos.User;
 import com.photos.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -42,7 +44,7 @@ public abstract class PhotosDisplay {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("image-slideshow.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Photo Slideshow");
-                stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+                stage.setScene(new Scene(fxmlLoader.load()));
                 stage.initModality(Modality.APPLICATION_MODAL);
 
                 ((ImageSlideShowController) fxmlLoader.getController()).setupImageSlideShow(photoList, photo);
@@ -86,10 +88,20 @@ public abstract class PhotosDisplay {
             inputDialog.showAndWait().ifPresent(photo::setCaption);
         });
 
-        MenuItem addTag = new MenuItem("Add Tag");
-        addTag.setOnAction(actionEvent -> {
-            AddTagDialog addTagDialog = new AddTagDialog(photo);
-            addTagDialog.showAndWait();
+        MenuItem editTags = new MenuItem("Edit Tags");
+        editTags.setOnAction(actionEvent -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-tags.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Edit Tags");
+                stage.setScene(new Scene(fxmlLoader.load()));
+                stage.initModality(Modality.APPLICATION_MODAL);
+
+                ((EditTagsController) fxmlLoader.getController()).setupEditTags(photo);
+                stage.showAndWait();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         MenuItem copyToAlbum = new MenuItem("Copy to Album");
@@ -99,7 +111,7 @@ public abstract class PhotosDisplay {
             selectAlbumDialog.showAndWait().ifPresent(albumList -> albumList.forEach(album -> album.getPhotos().add(photo)));
         });
 
-        return new ContextMenu(setCaption, addTag, copyToAlbum);
+        return new ContextMenu(setCaption, editTags, copyToAlbum);
     }
 
     @FXML

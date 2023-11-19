@@ -3,6 +3,8 @@ package com.photos.fxml;
 import com.photos.Photo;
 import com.photos.User;
 import com.photos.Utility;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -43,9 +45,10 @@ public class SearchDialog extends Dialog<List<Photo>> {
 
         getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        searchDialogController.tag1_1.setItems(User.getInstance().getTagList());
+        ObservableList<String> tagsList = FXCollections.observableArrayList(User.getInstance().getTagCollection());
+        searchDialogController.tag1_1.setItems(tagsList);
         searchDialogController.tag1_1.setEditable(false);
-        searchDialogController.tag2_1.setItems(User.getInstance().getTagList());
+        searchDialogController.tag2_1.setItems(tagsList);
         searchDialogController.tag2_1.setEditable(false);
 
         searchDialogController.date1.setEditable(false); /* JavaFX will crash if anything is in the box that is not a date */

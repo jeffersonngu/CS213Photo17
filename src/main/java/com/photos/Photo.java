@@ -60,6 +60,13 @@ public class Photo implements Serializable {
         Photos.serializeData();
     }
 
+    /**
+     * Do not modify directly, use {@link #getTags()} or {@link #addTag(String, String)} instead.
+     * Is based off the concept of a MultiMap
+     *
+     * @return The map of tags
+     */
+    public Map<String, List<String>> getTagsMap() { return tags; }
 
     public List<String> getTags() {
         return tags.entrySet().stream()
@@ -72,7 +79,13 @@ public class Photo implements Serializable {
         if (val == null) {
             tags.put(tag1, new ArrayList<>(Collections.singletonList(tag2)));
         } else {
-            val.add(tag2);
+            if (!val.contains(tag2)) {
+                if (User.getInstance().getTagMap().getOrDefault(tag1, true)) {
+                    val.add(tag2);
+                } else {
+                    val.set(0, tag2);
+                }
+            }
         }
         Photos.serializeData();
     }
