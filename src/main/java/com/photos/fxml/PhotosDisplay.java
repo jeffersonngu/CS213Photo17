@@ -88,7 +88,7 @@ public abstract class PhotosDisplay {
         copyToAlbum.setOnAction(actionEvent -> {
             SelectAlbumDialog selectAlbumDialog = new SelectAlbumDialog(photo, "Copy to Album",
                     "Pick one or more albums to copy the picture to", true);
-            selectAlbumDialog.showAndWait();
+            selectAlbumDialog.showAndWait().ifPresent(albumList -> albumList.forEach(album -> album.getPhotos().add(photo)));
         });
 
         return new ContextMenu(setCaption, addTag, copyToAlbum);
