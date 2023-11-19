@@ -23,6 +23,7 @@ public class AlbumController extends PhotosDisplay implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.photoList = Photos.getCurrentAlbum().getPhotos();
         Photos.getCurrentAlbum().getPhotos().forEach(this::displayPhoto);
         albumLabel.setText("Album: " + Photos.getCurrentAlbum().getName());
     }

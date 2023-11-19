@@ -42,6 +42,12 @@ public class Photo implements Serializable {
         return caption;
     }
 
+    public List<String> getTags() {
+        return tags.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream().map(val -> entry.getKey() + ": " + val))
+                .toList();
+    }
+
     public void setCaption(String caption) {
         if (!caption.isEmpty()) this.caption = caption;
         Photos.serializeData();

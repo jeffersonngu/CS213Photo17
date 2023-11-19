@@ -51,6 +51,10 @@ public class Utility {
         return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
+    public static String getDateTime(FileTime fileTime) {
+        return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:mm:ssa"));
+    }
+
     /**
      * Takes in an empty label and displays a colored message for a few seconds
      * @param message Empty label

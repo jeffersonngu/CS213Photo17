@@ -4,23 +4,45 @@ import com.photos.Photo;
 import com.photos.Photos;
 import com.photos.Utility;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public class PhotosDisplay {
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Base class for displaying Photos
+ * @apiNote Inheritors of this class should have a
+ *  {@see PhotosDisplay} and initialize {@link #photoList} for the code to function
+ */
+public abstract class PhotosDisplay {
 
     @FXML
     protected FlowPane photoFlowPane;
+
+    protected List<Photo> photoList;
 
     protected void displayPhoto(Photo photo) {
         ImageView imageView = new ImageView(photo.getPath().toUri().toString());
         Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {
-            // TODO: Open image
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("image-slideshow.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Photo Slideshow");
+                stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+                ((ImageSlideShowController) fxmlLoader.getController()).setupImageSlideShow(photoList, photo);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         /* Title */
