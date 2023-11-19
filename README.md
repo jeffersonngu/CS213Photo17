@@ -9,7 +9,7 @@ $ javac -d bin -cp src/main/java -sourcepath src/main/java src/main/java/module-
 ```
 You may notice there is a Launcher class with its own main, this is a wrapper so that the project can be compiled into a jar by Maven. Do not run this otherwise and use Photos::main instead
 
-To generate javadocs in docs, run mvnw javadocs:javadocs
+To generate javadocs in docs, run mvnw javadocs:javadocs. The docs are located at `docs/index.html`, which can be opened in a browser.
 
 ## Assumptions
 1. Copy and Move photo to another album disallows selection of albums that already contain the photo.
