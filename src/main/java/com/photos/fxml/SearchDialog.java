@@ -92,7 +92,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
         return switch (operator) {
             case "AND" -> predicate1.and(predicate2);
             case "OR" -> predicate1.or(predicate2);
-            default -> predicate1; /* Default is to not consider */
+            default -> predicate1; /* Ignore */
         };
     }
 
@@ -106,7 +106,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
             searchDialogController.combination1.setValue("AND");
         } else {
             searchDialogController.combination1.setVisible(false);
-            searchDialogController.combination1.setValue("OR");
+            searchDialogController.combination1.setValue("IGNORE");
         }
 
         if ((tag1Active || tag2Active) && dateActive) {
@@ -114,7 +114,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
             searchDialogController.combination2.setValue("AND");
         } else {
             searchDialogController.combination2.setVisible(false);
-            searchDialogController.combination2.setValue("OR");
+            searchDialogController.combination2.setValue("IGNORE");
         }
     }
 }
