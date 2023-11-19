@@ -14,6 +14,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.nio.file.attribute.FileTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -102,9 +103,13 @@ public class Utility {
         imageView.prefWidth(100.0);
         imageView.setFitHeight(100.0);
         imageView.setFitWidth(100.0);
-        imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
+        // imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
         // TODO: Rounded borders
         imageView.setPickOnBounds(true);
+
+        if (imageView.getImage().getException() instanceof FileNotFoundException) {
+            imageView.setImage(Photos.getNoImage());
+        }
     }
 
     public static Label generateEllipsisMenu(ContextMenu contextMenu) {

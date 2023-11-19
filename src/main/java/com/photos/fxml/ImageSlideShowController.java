@@ -1,6 +1,7 @@
 package com.photos.fxml;
 
 import com.photos.Photo;
+import com.photos.Photos;
 import com.photos.Utility;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ImageSlideShowController {
@@ -43,11 +45,18 @@ public class ImageSlideShowController {
 
     protected void updateImage() {
         Image image = new Image(currentPhoto.getPath().toUri().toString());
+        if (image.getException() instanceof FileNotFoundException) {
+            image = Photos.getNoImage();
+            slideshowCaption.textProperty().unbind();
+            slideshowCaption.setText("Missing Image: " + currentPhoto.getPath().toUri());
+            slideshowDateTime.setText("");
+            slideshowTags.setItems(null);
+        } else {
+            slideshowCaption.textProperty().bind(currentPhoto.getObservableCaption());
+            slideshowDateTime.setText(Utility.getDateTime(currentPhoto.getLastModified()));
+            slideshowTags.setItems(FXCollections.observableArrayList(currentPhoto.getTags()));
+        }
         slideshowImage.setImage(image);
-
-        slideshowCaption.textProperty().bind(currentPhoto.getObservableCaption());
-        slideshowDateTime.setText(Utility.getDateTime(currentPhoto.getLastModified()));
-        slideshowTags.setItems(FXCollections.observableArrayList(currentPhoto.getTags()));
     }
 
     @FXML

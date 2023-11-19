@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -26,6 +27,8 @@ public class Photos extends Application {
 
     private static Album currentAlbum = null;
 
+    private static Image noImage;
+
     public static void main(String[] args) {
         /* We want to exit our program if any uncaught exception occurs */
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
@@ -39,6 +42,8 @@ public class Photos extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        noImage = new Image(String.valueOf(Photos.class.getResource("/com/photos/no-image-icon.png")));
 
         usernames = readUsernames();
         launch(args);
@@ -111,6 +116,12 @@ public class Photos extends Application {
      * @return An {@link ObservableList} of registered usernames
      */
     public static ObservableList<String> getUsernames() { return usernames; }
+
+    /**
+     * In the event we do not have an image for display, we will use a default "no image"
+     * @return The default no image
+     */
+    public static Image getNoImage() { return noImage; }
 
     /**
      * Saves a list of known usernames. Required since {@link ObservableList} is not serializable

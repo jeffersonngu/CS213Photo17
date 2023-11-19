@@ -30,7 +30,7 @@ public class AlbumListController implements Initializable {
     protected void displayAlbum(Album album) {
         ImageView imageView;
         if (album.getPhotos().isEmpty()) {
-            imageView = new ImageView(String.valueOf(getClass().getResource("/com/photos/no-image-icon.png")));
+            imageView = new ImageView(Photos.getNoImage());
         } else {
             imageView = new ImageView(album.getPhotos().get(album.getPhotos().size() - 1).getPath().toUri().toString());
         }
