@@ -46,7 +46,7 @@ public class ImageSlideShowController {
         slideshowImage.setImage(image);
         // slideshowImage.setViewport(new Rectangle2D((Math.abs(image.getWidth() - 600.0))/2.0, 0, image.getWidth(), image.getHeight()));
 
-        slideshowCaption.setText(currentPhoto.getCaption());
+        slideshowCaption.textProperty().bind(currentPhoto.getObservableCaption());
         slideshowDateTime.setText(Utility.getDateTime(currentPhoto.getLastModified()));
         slideshowTags.setItems(FXCollections.observableArrayList(currentPhoto.getTags()));
     }

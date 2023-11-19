@@ -46,7 +46,8 @@ public abstract class PhotosDisplay {
         });
 
         /* Title */
-        Label label = new Label(photo.getCaption());
+        Label label = new Label();
+        label.textProperty().bind(photo.getObservableCaption());
         BorderPane.setAlignment(label, Pos.CENTER);
         BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);

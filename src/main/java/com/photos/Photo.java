@@ -1,5 +1,7 @@
 package com.photos;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,16 +14,16 @@ public class Photo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final Map<String, List<String>> tags; // Fake MultiMap
+    private final Map<String, List<String>> tags; /* Fake MultiMap */
     private transient Path path;
     private transient FileTime lastModified;
-    private String caption;
+    private transient SimpleStringProperty caption;
 
     public Photo(Path path) {
         tags = new HashMap<>();
 
         this.path = path;
-        this.caption = "";
+        this.caption = new SimpleStringProperty("");
 
         try {
             lastModified = Files.getLastModifiedTime(path);
@@ -38,19 +40,31 @@ public class Photo implements Serializable {
         return lastModified;
     }
 
-    public String getCaption() {
+    /**
+     * Do not modify directly, use {@link #setCaption(String)}} or {@link #getCaption()} instead.
+     * Else, manually serialize the data after modifications.
+     * Typically used to display the album.
+     *
+     * @return The observable caption of the photo
+     */
+    public SimpleStringProperty getObservableCaption() {
         return caption;
     }
+
+    public String getCaption() {
+        return caption.get();
+    }
+
+    public void setCaption(String caption) {
+        this.caption.set(caption);
+        Photos.serializeData();
+    }
+
 
     public List<String> getTags() {
         return tags.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream().map(val -> entry.getKey() + ": " + val))
                 .toList();
-    }
-
-    public void setCaption(String caption) {
-        if (!caption.isEmpty()) this.caption = caption;
-        Photos.serializeData();
     }
 
     public void addTag(String tag1, String tag2) {
@@ -77,6 +91,7 @@ public class Photo implements Serializable {
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.writeUTF(path.toString());
         out.writeLong(lastModified.to(TimeUnit.SECONDS));
+        out.writeUTF(caption.get());
         out.defaultWriteObject();
     }
 
@@ -84,6 +99,7 @@ public class Photo implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         path = Path.of(in.readUTF());
         long time = in.readLong();
+        caption = new SimpleStringProperty(in.readUTF());
         lastModified = FileTime.from(time, TimeUnit.SECONDS);
         in.defaultReadObject();
     }
