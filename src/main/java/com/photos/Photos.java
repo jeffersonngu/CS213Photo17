@@ -43,7 +43,6 @@ public class Photos extends Application {
             throw new RuntimeException(e);
         }
 
-        noImage = new Image(String.valueOf(Photos.class.getResource("/com/photos/no-image-icon.png")));
 
         usernames = readUsernames();
         launch(args);
@@ -52,6 +51,7 @@ public class Photos extends Application {
     @Override
     public void start(Stage stage) {
         mainStage = stage;
+        noImage = new Image(String.valueOf(Photos.class.getResource("/com/photos/no-image-icon.png")));
         stage.setTitle("Photos");
         switchScene("login.fxml");
     }
