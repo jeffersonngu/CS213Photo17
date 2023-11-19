@@ -50,3 +50,5 @@ Thumbs.db
 
 # JavaFX
 out/
+
+dependency-reduced-pom.xml

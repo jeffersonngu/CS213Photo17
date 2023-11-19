@@ -17,19 +17,57 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main JavaFX Application and its entry point.
+ */
 public class Photos extends Application {
 
     public static final String STORE_DIR = "data";
     private static final String STORE_USERNAMES = "usernames.dat";
 
+    /**
+     * The initial stage, we want to keep this so that we can switch between scenes without creating a new window.
+     */
     private static Stage mainStage;
+
+    /**
+     * Our list of usernames, we will keep a username.dat file that contains all login credentials.
+     * If a matching username is found, we can operate on it or load the respective username.dat file.
+     */
     private static ObservableList<String> usernames;
 
+    /**
+     * The current album we are working on. This field acts as a context for other methods
+     * since we may not know which album is currently opened.
+     */
     private static Album currentAlbum = null;
 
+    /**
+     * The default image when no image can be found.
+     * This is useful for cases like the original file was deleted or moved
+     * or when an album has no thumbnail to display.
+     */
     private static Image noImage;
 
     public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * {@inheritDoc} <br>
+     *
+     * We should initialize some data before we fully start our application.
+     * Here we:
+     * <ol>
+     *  <li>Handle uncaught exceptions</li>
+     *  <li>Generate our data and data/user folder</li>
+     *  <li>Generate our stock folder and data</li>
+     *  <li>Initialize our default {@link #noImage}</li>
+     *  <li>Begin deserializing our usernames</li>
+     * </ol>
+     */
+    @Override
+    public void init() {
         /* We want to exit our program if any uncaught exception occurs */
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
             throwable.printStackTrace();
@@ -45,9 +83,14 @@ public class Photos extends Application {
 
 
         usernames = readUsernames();
-        launch(args);
     }
 
+    /**
+     * {@inheritDoc} <br>
+     *
+     * We will initialize our stage settings and then open the Login page.
+     * @param stage {@inheritDoc}
+     */
     @Override
     public void start(Stage stage) {
         mainStage = stage;
@@ -57,7 +100,7 @@ public class Photos extends Application {
     }
 
     /**
-     * Changes the scene to a FXML file in com.photos.fxml
+     * Changes the scene to a FXML file in com.photos.fxml.
      *
      * @param fxmlFile Name of the fxml file as a string. Requires the .fxml extension, e.g. {@code "login.fxml"}
      */
@@ -78,6 +121,11 @@ public class Photos extends Application {
         }
     }
 
+    /**
+     * {@inheritDoc} <br>
+     *
+     * When our application stops, we will serialize all of our data.
+     */
     @Override
     public void stop() {
         serializeData();
@@ -85,7 +133,6 @@ public class Photos extends Application {
 
     /**
      * Serializes all the data and saves the state of the application.
-     * Controllers must call this function themselves after modifying data
      */
     public static void serializeData() {
         writeUsernames(usernames);
@@ -93,40 +140,38 @@ public class Photos extends Application {
     }
 
     /**
-     * @return The main stage that controls application
+     * @return {@link #mainStage}
      */
     public static Stage getMainStage() {
         return mainStage;
     }
 
     /**
-     * @return The currently worked on album
+     * @return {@link #currentAlbum}
      */
     public static Album getCurrentAlbum() { return currentAlbum; }
 
     /**
-     * Sets a new album to work on
-     * @param album A new album to work on
+     * @param album Sets {@link #currentAlbum}
      */
     public static void setCurrentAlbum(Album album) {
         currentAlbum = album;
     }
 
     /**
-     * @return An {@link ObservableList} of registered usernames
+     * @return {@link #usernames}
      */
     public static ObservableList<String> getUsernames() { return usernames; }
 
     /**
-     * In the event we do not have an image for display, we will use a default "no image"
-     * @return The default no image
+     * @return {@link #noImage}
      */
     public static Image getNoImage() { return noImage; }
 
     /**
-     * Saves a list of known usernames. Required since {@link ObservableList} is not serializable
+     * Saves a list of known usernames.
      *
-     * @param list List of usernames
+     * @param list List of usernames.
      * @see Photos#readUsernames()
      */
     public static void writeUsernames(ObservableList<String> list) {
@@ -142,7 +187,7 @@ public class Photos extends Application {
     }
 
     /**
-     * Reads a list of known usernames. Required since {@link ObservableList} is not serializable
+     * Reads a list of known usernames.
      *
      * @return The {@link ObservableList} of usernames
      * @see Photos#writeUsernames(ObservableList)
