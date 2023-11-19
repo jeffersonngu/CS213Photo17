@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,8 +39,10 @@ public abstract class PhotosDisplay {
                 Stage stage = new Stage();
                 stage.setTitle("Photo Slideshow");
                 stage.setScene(new Scene(fxmlLoader.load(), 600, 400));
+                stage.initModality(Modality.APPLICATION_MODAL);
+
                 ((ImageSlideShowController) fxmlLoader.getController()).setupImageSlideShow(photoList, photo);
-                stage.show();
+                stage.showAndWait();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -44,7 +44,6 @@ public class ImageSlideShowController {
     protected void updateImage() {
         Image image = new Image(currentPhoto.getPath().toUri().toString());
         slideshowImage.setImage(image);
-        // slideshowImage.setViewport(new Rectangle2D((Math.abs(image.getWidth() - 600.0))/2.0, 0, image.getWidth(), image.getHeight()));
 
         slideshowCaption.textProperty().bind(currentPhoto.getObservableCaption());
         slideshowDateTime.setText(Utility.getDateTime(currentPhoto.getLastModified()));
