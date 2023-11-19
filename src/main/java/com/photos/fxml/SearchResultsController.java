@@ -2,13 +2,13 @@ package com.photos.fxml;
 
 import com.photos.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
 
 public class SearchResultsController extends PhotosDisplay {
+
     public void displayResults(List<Photo> photos) {
         this.photoList = photos;
         photos.forEach(this::displayPhoto);

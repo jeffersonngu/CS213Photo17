@@ -22,9 +22,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Base class for displaying Photos
- * @apiNote Inheritors of this class should have a
- *  {@see PhotosDisplay} and initialize {@link #photoList} for the code to function
+ * Base class for displaying Photos.
+ * Inheritors of this controller should have a {@link #photoFlowPane} and {@link #message}. Additionally they need to initialize {@link #photoList}
  */
 public abstract class PhotosDisplay {
 
