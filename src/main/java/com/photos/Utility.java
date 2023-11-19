@@ -65,7 +65,9 @@ public class Utility {
         message.setTextFill(color);
         message.setText(text);
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
-        pause.setOnFinished(e -> message.setText(null));
+        pause.setOnFinished(e -> {
+            if (message.getText().equals(text)) message.setText(null);
+        });
         pause.play();
     }
 

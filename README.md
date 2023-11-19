@@ -10,3 +10,6 @@ From the root of the repository, run the following:
 ```bash
 $ javac -d bin -cp src/main/java -sourcepath src/main/java src/main/java/module-info.java $(find src/main/java -name "*.java")  -cp src/main/resources
 ```
+
+## Assumptions
+1. Copy and Move photo to another album disallows selection of albums that already contain the photo

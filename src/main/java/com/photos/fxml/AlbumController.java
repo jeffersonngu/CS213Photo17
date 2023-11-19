@@ -1,9 +1,6 @@
 package com.photos.fxml;
 
-import com.photos.Photo;
-import com.photos.Photos;
-import com.photos.User;
-import com.photos.Utility;
+import com.photos.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -45,13 +42,28 @@ public class AlbumController extends PhotosDisplay implements Initializable {
 
                 Photos.getCurrentAlbum().getPhotos().add(matchedPhoto);
                 displayPhoto(matchedPhoto);
-            } // TODO: Status message that says it couldn't add the photo?
+            } else {
+                Utility.displayErrorMessage(message, "Photo already exists in this album!");
+            }
         }
     }
 
     @Override
     protected ContextMenu getContextMenu(Photo photo, BorderPane borderPane) {
         ContextMenu contextMenu = super.getContextMenu(photo, borderPane);
+
+        MenuItem movePhoto = new MenuItem("Move");
+        movePhoto.setOnAction(actionEvent -> {
+            SelectAlbumDialog selectAlbumDialog = new SelectAlbumDialog(photo, "Move to Album",
+                    "Pick one album to move this photo to", false);
+            selectAlbumDialog.showAndWait().ifPresent(albumList -> {
+                Album targetAlbum = albumList.get(0);
+                photoList.remove(photo);
+                photoFlowPane.getChildren().remove(borderPane);
+                targetAlbum.getPhotos().add(photo);
+                Utility.displayStatusMessage(message, "Successfully moved photo to album: " + targetAlbum.getName());
+            });
+        });
 
         MenuItem removePhoto = new MenuItem("Remove");
         removePhoto.setOnAction(actionEvent -> {
@@ -69,8 +81,7 @@ public class AlbumController extends PhotosDisplay implements Initializable {
             });
         });
 
-        contextMenu.getItems().add(removePhoto);
-
+        contextMenu.getItems().addAll(movePhoto, removePhoto);
         return contextMenu;
     }
 }

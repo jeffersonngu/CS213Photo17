@@ -23,10 +23,19 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
 
     private final ObservableList<Album> selectedAlbums;
 
+    private final boolean hasMultiSelect;
+
+    /**
+     * Allows modification of a previous selection
+     * Only useful when {@link #hasMultiSelect} is false
+     */
+    private BorderPane previousBorderPane = null;
+
     public SelectAlbumDialog(Photo self, String title, String header, boolean hasMultiSelect) {
         super();
 
-        selectedAlbums = FXCollections.observableArrayList();
+        this.selectedAlbums = FXCollections.observableArrayList();
+        this.hasMultiSelect = hasMultiSelect;
 
         /* Load the fxml file */
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("select-album-dialog.fxml"));
@@ -51,7 +60,7 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
         /* Set results */
         setResultConverter(dialogButton -> {
             ButtonBar.ButtonData data = dialogButton == null ? null : dialogButton.getButtonData();
-            if (data == ButtonBar.ButtonData.OK_DONE) {
+            if (data == ButtonBar.ButtonData.OK_DONE && !selectedAlbums.isEmpty()) {
                 return selectedAlbums;
             }
             return null;
@@ -84,6 +93,11 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
             borderPane.setStyle("");
             selectedAlbums.remove(album);
         } else {
+            if (!hasMultiSelect) {
+                if (previousBorderPane != null) previousBorderPane.setStyle("");
+                selectedAlbums.clear();
+                previousBorderPane = borderPane;
+            }
             borderPane.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
             selectedAlbums.add(album);
         }
