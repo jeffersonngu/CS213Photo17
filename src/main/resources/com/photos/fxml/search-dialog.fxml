@@ -22,13 +22,13 @@
         <RowConstraints/>
       </rowConstraints>
       <Label text="Tag 1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-      <ChoiceBox fx:id="tag1_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+      <ComboBox fx:id="tag1_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
                  GridPane.valignment="CENTER"/>
       <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
       <TextField fx:id="tag1_2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER"
                  GridPane.valignment="CENTER"/>
       <Label text="Tag 2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-      <ChoiceBox fx:id="tag2_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+      <ComboBox fx:id="tag2_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
                  GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
       <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1"
              GridPane.valignment="CENTER"/>
