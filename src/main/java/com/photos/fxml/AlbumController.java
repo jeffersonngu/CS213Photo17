@@ -3,10 +3,10 @@ package com.photos.fxml;
 import com.photos.Photo;
 import com.photos.Photos;
 import com.photos.User;
+import com.photos.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
@@ -53,6 +53,23 @@ public class AlbumController extends PhotosDisplay implements Initializable {
     protected ContextMenu getContextMenu(Photo photo, BorderPane borderPane) {
         ContextMenu contextMenu = super.getContextMenu(photo, borderPane);
 
+        MenuItem removePhoto = new MenuItem("Remove");
+        removePhoto.setOnAction(actionEvent -> {
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setGraphic(null);
+            confirmation.setTitle("Remove Photo Confirmation");
+            confirmation.setHeaderText("Are you sure you want to delete this photo?");
+            confirmation.setContentText(null);
+            confirmation.showAndWait().ifPresent(buttonType -> {
+                if (buttonType == ButtonType.OK) {
+                    photoList.remove(photo);
+                    photoFlowPane.getChildren().remove(borderPane);
+                    Utility.displayStatusMessage(message, "Successfully deleted photo!");
+                }
+            });
+        });
+
+        contextMenu.getItems().add(removePhoto);
 
         return contextMenu;
     }

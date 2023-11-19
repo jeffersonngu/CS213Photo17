@@ -9,10 +9,6 @@ import javafx.scene.image.ImageView;
 import java.util.List;
 
 public class SearchResultsController extends PhotosDisplay {
-
-    @FXML
-    private Label message;
-
     public void displayResults(List<Photo> photos) {
         this.photoList = photos;
         photos.forEach(this::displayPhoto);

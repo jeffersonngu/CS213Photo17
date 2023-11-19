@@ -2,6 +2,7 @@ package com.photos.fxml;
 
 import com.photos.Photo;
 import com.photos.Photos;
+import com.photos.User;
 import com.photos.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,9 @@ public abstract class PhotosDisplay {
 
     @FXML
     protected FlowPane photoFlowPane;
+
+    @FXML
+    protected Label message;
 
     protected List<Photo> photoList;
 
