@@ -1,0 +1,26 @@
+#anchorPane,
+#vboxRoot {
+  -fx-background-color: #115e59;
+}
+
+#albumListScrollPane {
+  -fx-background-color: #f3f4f6;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+}
+
+#logoutButton,
+#saveResultsButton,
+#backButton {
+  -fx-background-color: #fde047;
+  -fx-font-weight: bold;
+}
+
+#logoutButton:hover,
+#saveResultsButton:hover,
+#backButton:hover {
+  -fx-background-color: #fef08a;
+}
+
+#searchResults {
+  -fx-text-fill: #fde047;
+}

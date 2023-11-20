@@ -58,7 +58,7 @@ public class AlbumListController implements Initializable {
         label.setTextOverrun(OverrunStyle.ELLIPSIS);
         label.setAlignment(Pos.CENTER);
         label.setMaxWidth(100.0);
-        
+
         Tooltip albumNameTooltip = Utility.getHelpTooltip(album.getName());
         albumNameTooltip.textProperty().bind(album.getObservableName());
 
@@ -101,14 +101,15 @@ public class AlbumListController implements Initializable {
             inputDialog.getEditor().setText(album.getName());
 
             ImageView infoImage = Utility.generateInformationGraphic("""
-                Give a new name to this album by inputting
-                    it into the text-field.
-                Note that blank or already existing album names are
-                    not allowed""");
+                    Give a new name to this album by inputting
+                        it into the text-field.
+                    Note that blank or already existing album names are
+                        not allowed""");
             inputDialog.setGraphic(infoImage);
 
             inputDialog.showAndWait().ifPresent(s -> { /* May get weird messages like cannot rename album test to test but that is fine */
-                if (!album.rename(s)) Utility.displayErrorMessage(message, "Cannot rename album " + album.getName() + " to " + s);
+                if (!album.rename(s))
+                    Utility.displayErrorMessage(message, "Cannot rename album " + album.getName() + " to " + s);
             });
         });
 
@@ -120,11 +121,11 @@ public class AlbumListController implements Initializable {
             confirmation.setHeaderText("Are you sure you want to delete album: " + album.getName());
             confirmation.setContentText(null);
             confirmation.showAndWait().ifPresent(buttonType -> {
-               if (buttonType == ButtonType.OK) {
-                   User.getInstance().getAlbums().remove(album);
-                   albumFlowPane.getChildren().remove(borderPane);
-                   Utility.displayStatusMessage(message, "Successfully deleted album: " + album.getName());
-               }
+                if (buttonType == ButtonType.OK) {
+                    User.getInstance().getAlbums().remove(album);
+                    albumFlowPane.getChildren().remove(borderPane);
+                    Utility.displayStatusMessage(message, "Successfully deleted album: " + album.getName());
+                }
             });
         });
 
@@ -150,8 +151,7 @@ public class AlbumListController implements Initializable {
                 Utility.displayErrorMessage(message, "Cannot create album, album name is blank!");
             } else if (!Utility.isUniqueAlbumName(s)) {
                 Utility.displayErrorMessage(message, "Cannot create album, an album already exists with that name!");
-            }
-            else {
+            } else {
                 Album album = new Album(s);
                 User.getInstance().getAlbums().add(album);
                 Utility.displayStatusMessage(message, "Created album " + album.getName());
@@ -166,7 +166,9 @@ public class AlbumListController implements Initializable {
         searchDialog.showAndWait().ifPresent(results -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-results.fxml"));
-                Photos.getMainStage().setScene(new Scene(fxmlLoader.load()));
+                Scene searchResultsScene = new Scene(fxmlLoader.load());
+                searchResultsScene.getStylesheets().add(Photos.class.getResource("css/search-results.css").toExternalForm());
+                Photos.getMainStage().setScene(searchResultsScene);
                 ((SearchResultsController) fxmlLoader.getController()).displayResults(results);
                 Photos.getMainStage().show();
             } catch (IOException e) {
