@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the entire list of albums
+ */
 public class AlbumListController implements Initializable {
 
     @FXML

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"photos","l":"com.photos"},{"m":"photos","l":"com.photos.fxml"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"photos","l":"com.photos"},{"m":"photos","l":"com.photos.fxml"},{"m":"photos","l":"com.photos.models"},{"m":"photos","l":"com.photos.utility"}];updateSearchResults();

@@ -17,6 +17,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the contents of a single album
+ */
 public class AlbumController extends PhotosDisplay implements Initializable {
 
     @FXML

@@ -14,6 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the admin user and all their respective actions.
+ */
 public class AdminController implements Initializable {
 
     @FXML

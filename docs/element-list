@@ -1,3 +1,5 @@
 module:photos
 com.photos
 com.photos.fxml
+com.photos.models
+com.photos.utility

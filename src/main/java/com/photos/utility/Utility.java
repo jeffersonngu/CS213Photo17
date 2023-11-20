@@ -30,6 +30,11 @@ import java.util.function.BiConsumer;
  */
 public class Utility {
 
+    /**
+     * Given a string, generate a consistently styled help tooltip.
+     * @param tooltip the text for the tooltip
+     * @return the created and styled tooltip
+     */
     public static Tooltip getHelpTooltip(String tooltip) {
         Tooltip helpTooltip = new Tooltip(tooltip);
         helpTooltip.setShowDelay(Duration.ZERO);
@@ -39,6 +44,13 @@ public class Utility {
         return helpTooltip;
     }
 
+    /**
+     * Create an information icon that can be hovered over for
+     * a tooltip
+     *
+     * @param tooltip the text for the tooltip
+     * @return the information icon with the tooltip text
+     */
     public static ImageView generateInformationGraphic(String tooltip) {
         ImageView infoImage = new ImageView(String.valueOf(Utility.class.getResource("/com/photos/information-icon.png")));
         infoImage.setFitWidth(25.0);
@@ -52,10 +64,22 @@ public class Utility {
         return infoImage;
     }
 
+    /**
+     * Given a filetime, convert it to a human-readable date (for albums).
+     *
+     * @param fileTime the timestamp to convert
+     * @return the human-readable date
+     */
     public static String getDate(FileTime fileTime) {
         return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern("MM/dd/yy"));
     }
 
+    /**
+     * Given a filetime, convert it to a human-readable datetime (for the slideshow).
+     *
+     * @param fileTime the timestamp to convert
+     * @return the human-readable datetime.
+     */
     public static String getDateTime(FileTime fileTime) {
         return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(DateTimeFormatter.ofPattern("MMMM d, yyyy h:mm:ssa"));
     }
@@ -94,6 +118,12 @@ public class Utility {
         displayMessage(message, text, Color.color(0.0, 226.0/255.0, 0.0));
     }
 
+    /**
+     * Finds the starting and ending photos by timestamp on an album.
+     *
+     * @param album the album to find the information for
+     * @param action the method to call with the two photos.
+     */
     public static void albumDateRange(Album album, BiConsumer<Photo, Photo> action) {
         album.getPhotos().stream()
                 .min(Comparator.comparing(Photo::getLastModified))
@@ -102,6 +132,10 @@ public class Utility {
                         .ifPresent(photoMaxDate -> action.accept(photoMinDate, photoMaxDate)));
     }
 
+    /**
+     * Default styling for an image view (for albums/search results/album lists)
+     * @param imageView the image view to style
+     */
     public static void setImageViewDefaultSettings(ImageView imageView) {
         imageView.prefHeight(100.0);
         imageView.prefWidth(100.0);
@@ -116,6 +150,12 @@ public class Utility {
         }
     }
 
+    /**
+     * Create the context menu for albums/photos
+     *
+     * @param contextMenu the context menu
+     * @return the context menu with styling
+     */
     public static Label generateEllipsisMenu(ContextMenu contextMenu) {
         Label ellipsis = new Label("⋮");
         ellipsis.setFont(Font.font(15));

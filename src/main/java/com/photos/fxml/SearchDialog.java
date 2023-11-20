@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
+/**
+ * Tag/Date based search dialog for photos.
+ */
 public class SearchDialog extends Dialog<List<Photo>> {
 
     private final SearchDialogController searchDialogController;

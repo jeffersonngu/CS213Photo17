@@ -10,6 +10,10 @@ import java.nio.file.attribute.FileTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A model representing a serializable Photo. Consists of various
+ * properties, e.g the path, caption, modification date.
+ */
 public class Photo implements Serializable {
 
     @Serial
@@ -75,6 +79,13 @@ public class Photo implements Serializable {
                 .toList();
     }
 
+    /**
+     * Add a key, value pair represent a tag. Will override
+     * single-valued tags and create new tags as necessary.
+     *
+     * @param tag1
+     * @param tag2
+     */
     public void addTag(String tag1, String tag2) {
         List<String> val = tags.get(tag1);
         if (val == null) {

@@ -14,6 +14,10 @@ import javafx.scene.layout.BorderPane;
 
 import java.util.List;
 
+/**
+ * Dialog that is shown when a user wants to move/copy
+ * photos around.
+ */
 public class SelectAlbumDialog extends Dialog<List<Album>> {
 
     private final SelectAlbumDialogController selectAlbumDialogController;

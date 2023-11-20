@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller for the edit tags option in the dropdown menu
+ * for a single photo
+ */
 public class EditTagsController {
 
     @FXML

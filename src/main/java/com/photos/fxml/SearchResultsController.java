@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 
 import java.util.List;
 
+/**
+ * Controller to show the results of a search.
+ */
 public class SearchResultsController extends PhotosDisplay {
 
     public void displayResults(List<Photo> photos) {

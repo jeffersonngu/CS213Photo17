@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Wrapper for ArrayList that internally serializes data for operations
+ * Wrapper for ArrayList that internally serializes data for operations. All modification
+ * functions override their ArrayList equivalents to call {@link PhotosApplication#serializeData()}
  * @param <E>
  */
 public class PhotosSerializableArrayList<E> extends ArrayList<E> implements Serializable {

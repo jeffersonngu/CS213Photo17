@@ -12,11 +12,20 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * A model representing a serializable User. Uses the singleton
+ * pattern to maintain a single user at all times. Consists
+ * of a username, a list of albums, and associated tags.
+ */
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The current user instance (singleton pattern). See {@link #generateInstance(String)}
+     * for more information.
+     */
     private static User instance = null;
 
     public static final String STORE_DIR = "user";

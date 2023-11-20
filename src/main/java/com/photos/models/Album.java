@@ -8,6 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import java.io.*;
 import java.util.List;
 
+/**
+ * A model representing a serializable album. Consists of a name
+ * and a list of photos.
+ */
 public class Album implements Serializable {
     
     @Serial

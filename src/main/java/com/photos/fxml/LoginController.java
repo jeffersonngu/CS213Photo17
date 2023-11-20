@@ -11,6 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+/**
+ * Controller for the first visible screen
+ */
 public class LoginController {
 
     @FXML

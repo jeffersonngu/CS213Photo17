@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+/**
+ * Controller for each image slideshow
+ */
 public class ImageSlideShowController {
 
     @FXML

@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Base class for displaying PhotosApplication.
- * Inheritors of this controller should have a {@link #photoFlowPane} and {@link #message}. Additionally they need to initialize {@link #photoList}
+ * Inheritors of this controller should have a {@link #photoFlowPane} and {@link #message}. Additionally, they need to initialize {@link #photoList}
  */
 public abstract class PhotosDisplay {
 
