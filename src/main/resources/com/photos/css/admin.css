@@ -19,3 +19,12 @@
 #deleteUserButton:hover {
   -fx-background-color: #0d9488;
 }
+
+#logoutButton {
+  -fx-background-color: #fde047;
+  -fx-font-weight: bold;
+}
+
+#logoutButton:hover {
+  -fx-background-color: #fef08a;
+}
