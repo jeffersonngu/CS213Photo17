@@ -1,10 +1,14 @@
 package com.photos.fxml;
 
 import com.photos.Photo;
+import com.photos.Photos;
 import com.photos.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.InputEvent;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,9 @@ public class EditTagsController {
 
     @FXML
     protected ListView<Map.Entry<String, String>> tagsListView;
+
+    @FXML
+    Button backButton;
 
     protected Photo photo;
 
@@ -122,5 +129,11 @@ public class EditTagsController {
             tagsMap.get(entry.getKey()).remove(entry.getValue());
             updateTagsListView();
         }
+    }
+
+    @FXML
+    protected void onBackToAlbum() {
+        Stage currentStage = (Stage) backButton.getScene().getWindow();
+        currentStage.close();
     }
 }
