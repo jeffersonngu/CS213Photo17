@@ -7,16 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,10 +53,19 @@ public abstract class PhotosDisplay {
 
         /* Title */
         Label label = new Label();
+        label.setTextOverrun(OverrunStyle.ELLIPSIS);
+        label.setAlignment(Pos.CENTER);
+        label.setMaxWidth(100.0);
         label.textProperty().bind(photo.getObservableCaption());
         BorderPane.setAlignment(label, Pos.CENTER);
         BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);
+
+        Tooltip captionTooltip = new Tooltip();
+        captionTooltip.textProperty().bind(photo.getObservableCaption());
+        captionTooltip.setShowDelay(Duration.millis(250));
+
+        Tooltip.install(borderPane, captionTooltip);
 
         /* Context Menu */
         Label ellipsis = new Label("⋮");
