@@ -39,11 +39,11 @@ public class AdminController implements Initializable {
     @FXML
     protected void onAddUser() {
         if (addUserField == null || addUserField.getText().isEmpty()) {
-            addUserLabel.setText("Please enter a Username for this User!");
+            addUserLabel.setText("Please enter a username!");
         } else if (Photos.getUsernames().contains(addUserField.getText().toLowerCase())) {
             addUserLabel.setText("User already exists!");
         } else if (addUserField.getText().equalsIgnoreCase("admin")) {
-            addUserLabel.setText("Cannot add that username, reserved for admin!");
+            addUserLabel.setText("Cannot add that username!");
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");
             Photos.getUsernames().add(addUserField.getText());

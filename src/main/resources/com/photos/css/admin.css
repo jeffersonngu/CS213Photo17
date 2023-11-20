@@ -1,0 +1,21 @@
+#anchorPane {
+  -fx-background-color: #115e59;
+}
+
+#card {
+  -fx-background-color: #f3f4f6;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+}
+
+#addUserButton,
+#deleteUserButton {
+  -fx-background-color: #0f766e;
+  -fx-text-fill: #f3f4f6;
+}
+
+#addUserButton:hover,
+#deleteUserButton:hover {
+  -fx-background-color: #0d9488;
+}
