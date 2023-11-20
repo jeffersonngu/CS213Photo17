@@ -1,66 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.SearchDialogController">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.SearchDialogController">
   <content>
     <GridPane hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="10">
       <columnConstraints>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
+        <ColumnConstraints />
+        <ColumnConstraints maxWidth="78.0" minWidth="74.0" prefWidth="74.0" />
+        <ColumnConstraints maxWidth="158.0" minWidth="154.0" prefWidth="158.0" />
+        <ColumnConstraints />
+        <ColumnConstraints />
       </columnConstraints>
       <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints />
+        <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
       </rowConstraints>
-      <Label text="Tag 1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-      <ComboBox fx:id="tag1_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                 GridPane.valignment="CENTER"/>
-      <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-      <TextField fx:id="tag1_2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER"
-                 GridPane.valignment="CENTER"/>
-      <Label text="Tag 2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-      <ComboBox fx:id="tag2_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                 GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-      <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1"
-             GridPane.valignment="CENTER"/>
-      <TextField fx:id="tag2_2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER"
-                 GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-      <Label text="Date Range" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
-      <DatePicker fx:id="date1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                  GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
-      <Label text="to" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2"
-             GridPane.valignment="CENTER"/>
-      <DatePicker fx:id="date2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER"
-                  GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
-      <ChoiceBox fx:id="combination1" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                 GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Label text="Tag 1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <ComboBox fx:id="tag1_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <TextField fx:id="tag1_2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Label text="Tag 2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <ComboBox fx:id="tag2_1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Label text=":" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <TextField fx:id="tag2_2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Label text="Date Range" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <DatePicker fx:id="date1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Label text="to" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <DatePicker fx:id="date2" prefWidth="150.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <ChoiceBox fx:id="combination1" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <items>
           <FXCollections fx:factory="observableArrayList">
             <String fx:value="IGNORE" />
-            <String fx:value="AND"/>
-            <String fx:value="OR"/>
+            <String fx:value="AND" />
+            <String fx:value="OR" />
           </FXCollections>
         </items>
       </ChoiceBox>
-      <ChoiceBox fx:id="combination2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                 GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <ChoiceBox fx:id="combination2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
         <items>
           <FXCollections fx:factory="observableArrayList">
             <String fx:value="IGNORE" />
-            <String fx:value="AND"/>
-            <String fx:value="OR"/>
+            <String fx:value="AND" />
+            <String fx:value="OR" />
           </FXCollections>
         </items>
       </ChoiceBox>
+         <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
     </GridPane>
   </content>
 </DialogPane>

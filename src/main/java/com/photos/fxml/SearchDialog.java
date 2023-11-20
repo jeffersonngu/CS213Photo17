@@ -36,11 +36,9 @@ public class SearchDialog extends Dialog<List<Photo>> {
         setHeaderText("Search for a photo based on tags or dates");
 
         ImageView infoImage = Utility.generateInformationGraphic("""
-                Search all photos based on 2 name-value tags and a date range
-                Use AND/OR to combine the next filters, or IGNORE to ignore
-                If a tag or date range is left empty, it will be ignored
-                Tags are not case sensitive
-                If everything is left empty, will show all photos""");
+                Search photos based on 1-2 tags/a date range. Predicates can
+                be combined using AND/OR/IGNORE, which will appear in a dropdown
+                once any of the rows are filled out.""");
         setGraphic(infoImage);
 
         getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
