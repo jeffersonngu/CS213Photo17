@@ -5,10 +5,12 @@ import com.photos.Photos;
 import com.photos.Utility;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -26,6 +28,9 @@ public class ImageSlideShowController {
 
     @FXML
     protected ListView<String> slideshowTags;
+
+    @FXML
+    protected Button backButton;
 
     protected List<Photo> photoList;
     protected int currentIndex;
@@ -71,5 +76,11 @@ public class ImageSlideShowController {
         if (currentIndex >= (photoList.size() - 1)) return;
         currentPhoto = photoList.get(++currentIndex);
         updateImage();
+    }
+
+    @FXML
+    protected void onBackToAlbumButton() {
+        Stage currentStage = (Stage) backButton.getScene().getWindow();
+        currentStage.close();
     }
 }
