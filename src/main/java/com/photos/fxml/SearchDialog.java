@@ -86,9 +86,14 @@ public class SearchDialog extends Dialog<List<Photo>> {
         }
 
         if (searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null) {
-            result = combinePredicate(result, searchDialogController.combination2.getValue(),
-                    photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
-                            && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay());
+            if (searchDialogController.combination2.getValue() != null) {
+                result = combinePredicate(result, searchDialogController.combination2.getValue(),
+                        photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
+                                && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay());
+            } else {
+                result = photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
+                                && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay();
+            }
         }
 
         return result;
@@ -120,6 +125,18 @@ public class SearchDialog extends Dialog<List<Photo>> {
             searchDialogController.combination2.setValue("AND");
         } else {
             searchDialogController.combination2.setVisible(false);
+            searchDialogController.combination2.setValue("IGNORE");
+        }
+
+        // TODO: Somewhat fixes most issues? Still need to look at combination of tag2 + date
+        if (!tag1Active && !tag2Active && dateActive) {
+            searchDialogController.combination2.setVisible(false);
+            searchDialogController.combination2.setValue("AND");
+        }
+
+        if (!tag1Active && tag2Active && !dateActive) {
+            searchDialogController.combination1.setVisible(false);
+            searchDialogController.combination1.setValue("AND");
             searchDialogController.combination2.setValue("IGNORE");
         }
     }
