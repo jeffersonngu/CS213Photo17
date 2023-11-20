@@ -23,6 +23,8 @@ public class AlbumController extends PhotosDisplay implements Initializable {
         this.photoList = Photos.getCurrentAlbum().getPhotos();
         Photos.getCurrentAlbum().getPhotos().forEach(this::displayPhoto);
         albumLabel.setText("Album: " + Photos.getCurrentAlbum().getName());
+
+        albumLabel.setTooltip(Utility.getHelpTooltip(Photos.getCurrentAlbum().getName()));
     }
 
     @FXML
