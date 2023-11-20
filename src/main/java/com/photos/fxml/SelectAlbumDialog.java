@@ -8,10 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
@@ -82,6 +79,9 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
 
         Label label = new Label();
         label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
+        label.setTextOverrun(OverrunStyle.ELLIPSIS);
+        label.setAlignment(Pos.CENTER);
+        label.setMaxWidth(100.0);
         BorderPane.setAlignment(label, Pos.CENTER);
         borderPane.setTop(label);
 
