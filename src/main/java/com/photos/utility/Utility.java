@@ -5,6 +5,7 @@ import com.photos.models.Album;
 import com.photos.models.Photo;
 import com.photos.models.User;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -93,9 +94,14 @@ public class Utility {
     public static void displayMessage(Label message, String text, Paint color) {
         message.setTextFill(color);
         message.setText(text);
+        message.setStyle("-fx-background-color: #f3f4f6");
+        message.setPadding(new Insets(0, 4, 0, 4));
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         pause.setOnFinished(e -> {
-            if (message.getText() != null && message.getText().equals(text)) message.setText(null);
+            if (message.getText() != null && message.getText().equals(text)) {
+                message.setText(null);
+                message.setPadding(new Insets(0));
+            }
         });
         pause.play();
     }
@@ -115,7 +121,7 @@ public class Utility {
      * @param text The message
      */
     public static void displayStatusMessage(Label message, String text) {
-        displayMessage(message, text, Color.color(0.0, 226.0/255.0, 0.0));
+        displayMessage(message, text, Color.color(17.0/255.0, 94.0/255.0, 89.0/255.0));
     }
 
     /**
@@ -137,10 +143,10 @@ public class Utility {
      * @param imageView the image view to style
      */
     public static void setImageViewDefaultSettings(ImageView imageView) {
-        imageView.prefHeight(100.0);
-        imageView.prefWidth(100.0);
-        imageView.setFitHeight(100.0);
-        imageView.setFitWidth(100.0);
+        imageView.prefHeight(150.0);
+        imageView.prefWidth(150.0);
+        imageView.setFitHeight(150.0);
+        imageView.setFitWidth(150.0);
         // imageView.setStyle("-fx-border-color: black;" + "-fx-border-width: 4px;"); // Does not work, need pane wrapper?
         // TODO: Rounded borders
         imageView.setPickOnBounds(true);

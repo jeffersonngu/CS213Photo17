@@ -8,20 +8,29 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.AlbumListController">
-   <VBox alignment="TOP_RIGHT" layoutY="2.0" prefHeight="399.0" prefWidth="710.0">
-        <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="25.0" prefWidth="103.0" text="Search" />
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.AlbumListController">
+   <VBox alignment="TOP_RIGHT" layoutY="2.0" prefHeight="399.0" prefWidth="710.0" spacing="12.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+       <HBox>
+           <Label fx:id="yourAlbums" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+              <font>
+                  <Font size="24.0"/>
+              </font>
+           </Label>
+           <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearch" prefHeight="25.0" prefWidth="103.0"
+                   text="Search"/>
+       </HBox>
          <HBox alignment="CENTER">
               <Label fx:id="message" alignment="CENTER" />
          </HBox>
-        <ScrollPane fitToWidth="true" prefHeight="323.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
-          <FlowPane fx:id="albumFlowPane" hgap="10" prefHeight="315.0" prefWidth="694.0" vgap="10" />
+        <ScrollPane fx:id="albumListScrollPane" fitToWidth="true" prefHeight="275.0" prefWidth="680.0" VBox.vgrow="ALWAYS">
+          <FlowPane fx:id="albumFlowPane" hgap="10" prefHeight="260.0" prefWidth="678.0" vgap="10" />
         </ScrollPane>
-         <HBox alignment="BOTTOM_LEFT">
-              <LogoutButton prefWidth="56.0" text="Logout" />
+         <HBox alignment="BOTTOM_LEFT" prefWidth="680.0">
+              <LogoutButton fx:id="logoutButton" prefWidth="56.0" text="Logout" />
                <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-              <Button mnemonicParsing="false" onAction="#onAddAlbum" prefHeight="40.0" prefWidth="40.0" text="+" />
+              <Button fx:id="addAlbumButton" mnemonicParsing="false" onAction="#onAddAlbum" prefHeight="40.0" prefWidth="40.0" text="+" />
          </HBox>
    </VBox>
 </AnchorPane>

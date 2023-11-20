@@ -23,6 +23,9 @@ import java.util.ResourceBundle;
 public class AlbumListController implements Initializable {
 
     @FXML
+    private Label yourAlbums;
+
+    @FXML
     private FlowPane albumFlowPane;
 
     @FXML
@@ -30,6 +33,7 @@ public class AlbumListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        yourAlbums.setText(User.getInstance().getUsername() + "'s albums - " + User.getInstance().getAlbums().size());
         User.getInstance().getAlbums().forEach(this::displayAlbum);
     }
 
@@ -150,6 +154,7 @@ public class AlbumListController implements Initializable {
             else {
                 Album album = new Album(s);
                 User.getInstance().getAlbums().add(album);
+                Utility.displayStatusMessage(message, "Created album " + album.getName());
                 displayAlbum(album);
             }
         });
