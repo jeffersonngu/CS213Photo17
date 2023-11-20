@@ -65,7 +65,7 @@ public abstract class PhotosDisplay {
         captionTooltip.textProperty().bind(photo.getObservableCaption());
         captionTooltip.setShowDelay(Duration.millis(250));
 
-        Tooltip.install(borderPane, captionTooltip);
+        label.setTooltip(captionTooltip);
 
         /* Context Menu */
         Label ellipsis = new Label("⋮");

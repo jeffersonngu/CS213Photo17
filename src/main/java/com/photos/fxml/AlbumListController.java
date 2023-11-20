@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +46,16 @@ public class AlbumListController implements Initializable {
         /* Title */
         Label label = new Label();
         label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
+        label.setTextOverrun(OverrunStyle.ELLIPSIS);
+        label.setAlignment(Pos.CENTER);
+        label.setMaxWidth(100.0);
+        
+        Tooltip albumNameTooltip = new Tooltip();
+        albumNameTooltip.textProperty().bind(album.getObservableName());
+        albumNameTooltip.setShowDelay(Duration.millis(250));
+
+        label.setTooltip(albumNameTooltip);
+
         BorderPane.setAlignment(label, Pos.CENTER);
         borderPane.setTop(label);
 
