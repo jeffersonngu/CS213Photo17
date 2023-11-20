@@ -61,9 +61,8 @@ public abstract class PhotosDisplay {
         BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);
 
-        Tooltip captionTooltip = new Tooltip();
+        Tooltip captionTooltip = Utility.getHelpTooltip(photo.getCaption());
         captionTooltip.textProperty().bind(photo.getObservableCaption());
-        captionTooltip.setShowDelay(Duration.millis(250));
 
         label.setTooltip(captionTooltip);
 

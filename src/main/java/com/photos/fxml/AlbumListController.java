@@ -50,9 +50,8 @@ public class AlbumListController implements Initializable {
         label.setAlignment(Pos.CENTER);
         label.setMaxWidth(100.0);
         
-        Tooltip albumNameTooltip = new Tooltip();
+        Tooltip albumNameTooltip = Utility.getHelpTooltip(album.getName());
         albumNameTooltip.textProperty().bind(album.getObservableName());
-        albumNameTooltip.setShowDelay(Duration.millis(250));
 
         label.setTooltip(albumNameTooltip);
 
