@@ -1,8 +1,8 @@
 package com.photos.fxml;
 
-import com.photos.Photo;
-import com.photos.User;
-import com.photos.Utility;
+import com.photos.models.Photo;
+import com.photos.models.User;
+import com.photos.utility.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +32,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
         }
 
         /* Load extras */
-        setTitle("Search Photos");
+        setTitle("Search PhotosApplication");
         setHeaderText("Search for a photo based on tags or dates");
 
         ImageView infoImage = Utility.generateInformationGraphic("""

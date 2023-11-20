@@ -1,13 +1,10 @@
 package com.photos.fxml;
 
-import com.photos.Photo;
-import com.photos.Photos;
-import com.photos.User;
+import com.photos.models.Photo;
+import com.photos.models.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.InputEvent;
 import javafx.stage.Stage;
 
 import java.util.List;

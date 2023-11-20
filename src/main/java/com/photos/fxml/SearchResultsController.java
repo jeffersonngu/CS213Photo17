@@ -1,6 +1,10 @@
 package com.photos.fxml;
 
 import com.photos.*;
+import com.photos.models.Album;
+import com.photos.models.Photo;
+import com.photos.models.User;
+import com.photos.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
@@ -32,8 +36,8 @@ public class SearchResultsController extends PhotosDisplay {
                 album.getPhotos().addAll(photoList);
                 User.getInstance().getAlbums().add(album);
 
-                Photos.setCurrentAlbum(album);
-                Photos.switchScene("album.fxml");
+                PhotosApplication.setCurrentAlbum(album);
+                PhotosApplication.switchScene("album.fxml");
             } else {
                 Utility.displayErrorMessage(message, "Cannot create album, an album already exists with that name!");
             }

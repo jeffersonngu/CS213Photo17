@@ -64,7 +64,7 @@
 <!--                            <archive>-->
 <!--                                <addMavenDescriptor>false</addMavenDescriptor>-->
 <!--                            </archive>-->
-                            <mainClass>com.photos/com.photos.Photos</mainClass>
+                            <mainClass>com.photos/com.photos.PhotosApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

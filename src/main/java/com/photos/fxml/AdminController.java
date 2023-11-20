@@ -1,7 +1,7 @@
 package com.photos.fxml;
 
-import com.photos.Photos;
-import com.photos.User;
+import com.photos.PhotosApplication;
+import com.photos.models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -30,20 +30,20 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usersListView.setItems(Photos.getUsernames());
+        usersListView.setItems(PhotosApplication.getUsernames());
     }
 
     @FXML
     protected void onAddUser() {
         if (addUserField == null || addUserField.getText().isEmpty()) {
             addUserLabel.setText("Please enter a Username for this User!");
-        } else if (Photos.getUsernames().contains(addUserField.getText().toLowerCase())) {
+        } else if (PhotosApplication.getUsernames().contains(addUserField.getText().toLowerCase())) {
             addUserLabel.setText("User already exists!");
         } else if (addUserField.getText().equalsIgnoreCase("admin")) {
             addUserLabel.setText("Cannot add that username, reserved for admin!");
         } else {
             addUserLabel.setText("Added " + addUserField.getText() + "!");
-            Photos.getUsernames().add(addUserField.getText());
+            PhotosApplication.getUsernames().add(addUserField.getText());
         }
     }
 
@@ -54,9 +54,9 @@ public class AdminController implements Initializable {
             deleteUserLabel.setText("Please select a User from the list first!");
         } else {
             deleteUserLabel.setText("Deleted " + selectedUser + "!");
-            Photos.getUsernames().remove(selectedUser);
+            PhotosApplication.getUsernames().remove(selectedUser);
             try {
-                Files.deleteIfExists(Paths.get(Photos.STORE_DIR, User.STORE_DIR, selectedUser + ".dat"));
+                Files.deleteIfExists(Paths.get(PhotosApplication.STORE_DIR, User.STORE_DIR, selectedUser + ".dat"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

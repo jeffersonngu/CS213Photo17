@@ -1,5 +1,9 @@
-package com.photos;
+package com.photos.utility;
 
+import com.photos.PhotosApplication;
+import com.photos.models.Album;
+import com.photos.models.Photo;
+import com.photos.models.User;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -67,7 +71,7 @@ public class Utility {
         message.setText(text);
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         pause.setOnFinished(e -> {
-            if (message.getText().equals(text)) message.setText(null);
+            if (message.getText() != null && message.getText().equals(text)) message.setText(null);
         });
         pause.play();
     }
@@ -108,7 +112,7 @@ public class Utility {
         imageView.setPickOnBounds(true);
 
         if (imageView.getImage().getException() instanceof FileNotFoundException) {
-            imageView.setImage(Photos.getNoImage());
+            imageView.setImage(PhotosApplication.getNoImage());
         }
     }
 

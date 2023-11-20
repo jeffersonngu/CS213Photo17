@@ -7,4 +7,8 @@ module photos {
 
     exports com.photos.fxml;
     opens com.photos.fxml to javafx.fxml;
+    exports com.photos.models;
+    opens com.photos.models to javafx.fxml;
+    opens com.photos.utility to javafx.fxml;
+    exports com.photos.utility;
 }

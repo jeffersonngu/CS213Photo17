@@ -1,9 +1,9 @@
 package com.photos.fxml;
 
-import com.photos.Album;
-import com.photos.Photo;
-import com.photos.User;
-import com.photos.Utility;
+import com.photos.models.Album;
+import com.photos.models.Photo;
+import com.photos.models.User;
+import com.photos.utility.Utility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
