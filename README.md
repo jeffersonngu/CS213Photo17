@@ -6,6 +6,7 @@ From the root of the repository, run the following:
 
 ```bash
 $ javac -d bin -cp src/main/java -sourcepath src/main/java src/main/java/module-info.java $(find src/main/java -name "*.java")  -cp src/main/resources
+$ java -cp bin:src/main/resources/ com.photos.Photos
 ```
 You may notice there is a `Launcher` class with its own main, this is a wrapper so that the project can be compiled into a jar by Maven. Do not run this otherwise and use `PhotosApplication.main` instead
 
