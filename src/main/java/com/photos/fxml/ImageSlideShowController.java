@@ -61,6 +61,8 @@ public class ImageSlideShowController {
             slideshowTags.setItems(null);
         } else {
             slideshowCaption.textProperty().bind(currentPhoto.getObservableCaption());
+            slideshowCaption.setTooltip(currentPhoto.getCaption().isBlank() ? null :
+                    Utility.getHelpTooltip(currentPhoto.getCaption()));
             slideshowDateTime.setText(Utility.getDateTime(currentPhoto.getLastModified()));
             slideshowTags.setItems(FXCollections.observableArrayList(currentPhoto.getTags()));
         }
