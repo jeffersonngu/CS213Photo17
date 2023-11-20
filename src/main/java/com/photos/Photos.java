@@ -1,6 +1,7 @@
 package com.photos;
 
 import com.photos.models.Album;
+import com.photos.models.Photo;
 import com.photos.models.User;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Main JavaFX Application and its entry point.
@@ -85,6 +87,11 @@ public class Photos extends Application {
 
 
         usernames = readUsernames();
+
+        // Create stock user if one doesn't exist
+        if (!usernames.contains("stock")) {
+            addStockUser();
+        }
     }
 
     /**
@@ -208,5 +215,32 @@ public class Photos extends Application {
             }
         }
         return FXCollections.observableArrayList();
+    }
+
+    /**
+     * Create a new stock user and load the 5 photos in data/stock
+     * to its stock album.
+     */
+    public static void addStockUser() {
+        usernames.add("stock");
+
+        // "Login" the stock user temporarily to add photos
+        User.generateInstance("stock");
+        User stockUser = User.getInstance();
+
+        Album stockAlbum = new Album("stock");
+
+        IntStream.range(1, 6).forEach(i -> {
+            Photo newPhoto = new Photo(Paths.get("data/stock/" + i + ".png"));
+            stockAlbum.getPhotos().add(newPhoto);
+        });
+
+        stockUser.getAlbums().add(stockAlbum);
+
+        // Serialize the stock user
+        User.writeUser();
+
+        // "Logout" the stock user
+        User.deleteInstance();
     }
 }
