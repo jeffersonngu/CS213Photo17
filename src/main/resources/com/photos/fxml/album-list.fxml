@@ -6,13 +6,22 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="711.1" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.AlbumListController">
-  <ScrollPane layoutX="67.0" layoutY="51.0" prefHeight="236.0" fitToWidth="true">
-    <FlowPane fx:id="albumFlowPane" hgap="10" prefHeight="236.0" prefWidth="577.0" vgap="10"/>
-  </ScrollPane>
-  <LogoutButton layoutY="374.0" />
-  <Button layoutX="670.0" layoutY="359.0" mnemonicParsing="false" onAction="#onAddAlbum" prefHeight="40.0" prefWidth="40.0" text="+" />
-  <Button layoutX="607.0" layoutY="2.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="25.0" prefWidth="103.0" text="Search" />
-  <Label fx:id="message" alignment="CENTER" layoutX="342.0" layoutY="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <VBox alignment="TOP_RIGHT" layoutY="2.0" prefHeight="399.0" prefWidth="710.0">
+        <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="25.0" prefWidth="103.0" text="Search" />
+         <HBox alignment="CENTER">
+              <Label fx:id="message" alignment="CENTER" />
+         </HBox>
+        <ScrollPane fitToWidth="true" prefHeight="323.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
+          <FlowPane fx:id="albumFlowPane" hgap="10" prefHeight="315.0" prefWidth="694.0" vgap="10" />
+        </ScrollPane>
+         <HBox alignment="BOTTOM_LEFT">
+              <LogoutButton prefWidth="56.0" text="Logout" />
+               <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+              <Button mnemonicParsing="false" onAction="#onAddAlbum" prefHeight="40.0" prefWidth="40.0" text="+" />
+         </HBox>
+   </VBox>
 </AnchorPane>

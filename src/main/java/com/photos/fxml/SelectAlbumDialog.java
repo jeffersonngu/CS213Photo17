@@ -78,12 +78,17 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
         Utility.setImageViewDefaultSettings(imageView);
 
         Label label = new Label();
-        label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
+        label.textProperty().bind(album.getObservableName());
         label.setTextOverrun(OverrunStyle.ELLIPSIS);
         label.setAlignment(Pos.CENTER);
         label.setMaxWidth(100.0);
         BorderPane.setAlignment(label, Pos.CENTER);
+
+        Label albumSize = new Label("「" + album.getPhotos().size() + "」");
+        BorderPane.setAlignment(albumSize, Pos.CENTER);
+
         borderPane.setTop(label);
+        borderPane.setBottom(albumSize);
 
         selectAlbumDialogController.albumFlowPane.getChildren().add(borderPane);
     }

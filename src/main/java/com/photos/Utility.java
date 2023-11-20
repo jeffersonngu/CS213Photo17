@@ -49,7 +49,7 @@ public class Utility {
     }
 
     public static String getDate(FileTime fileTime) {
-        return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        return fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(DateTimeFormatter.ofPattern("MM/dd/yy"));
     }
 
     public static String getDateTime(FileTime fileTime) {
