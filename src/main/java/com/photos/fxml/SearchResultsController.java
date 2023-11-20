@@ -39,8 +39,8 @@ public class SearchResultsController extends PhotosDisplay {
                 album.getPhotos().addAll(photoList);
                 User.getInstance().getAlbums().add(album);
 
-                PhotosApplication.setCurrentAlbum(album);
-                PhotosApplication.switchScene("album.fxml");
+                Photos.setCurrentAlbum(album);
+                Photos.switchScene("album.fxml");
             } else {
                 Utility.displayErrorMessage(message, "Cannot create album, an album already exists with that name!");
             }

@@ -1,6 +1,6 @@
 package com.photos.fxml;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import com.photos.models.User;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class LoginController {
     protected void onLogin() {
         if (usernameInput == null || usernameInput.getText().isEmpty()) {
             signinText.setText("Please input a username!");
-        } else if (!PhotosApplication.getUsernames().contains(usernameInput.getText().toLowerCase())
+        } else if (!Photos.getUsernames().contains(usernameInput.getText().toLowerCase())
             && !usernameInput.getText().equalsIgnoreCase("admin")) { /* Invalid Login */
             signinText.setText("Invalid username!");
         } else {
@@ -42,10 +42,10 @@ public class LoginController {
 
             fadeTransition.setOnFinished(e -> {
                 if (username.equals("admin")) {
-                    PhotosApplication.switchScene("admin.fxml");
+                    Photos.switchScene("admin.fxml");
                 } else {
                     User.generateInstance(username);
-                    PhotosApplication.switchScene("album-list.fxml");
+                    Photos.switchScene("album-list.fxml");
                 }
             });
             fadeTransition.play();

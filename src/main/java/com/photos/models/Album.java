@@ -1,6 +1,6 @@
 package com.photos.models;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import com.photos.utility.PhotosSerializableArrayList;
 import com.photos.utility.Utility;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,7 +49,7 @@ public class Album implements Serializable {
     public boolean rename(String newName) {
         if (!newName.isBlank() && Utility.isUniqueAlbumName(getName(), newName)) {
             name.set(newName);
-            PhotosApplication.serializeData();
+            Photos.serializeData();
             return true;
         }
         return false;

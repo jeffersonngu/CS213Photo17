@@ -1,6 +1,6 @@
 package com.photos.models;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import com.photos.utility.PhotosSerializableArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -103,7 +103,7 @@ public class User implements Serializable {
     public static void writeUser() {
         try {
             if (instance == null) return;
-            Path path = Paths.get(PhotosApplication.STORE_DIR, User.STORE_DIR, instance.getUsername() + ".dat");
+            Path path = Paths.get(Photos.STORE_DIR, User.STORE_DIR, instance.getUsername() + ".dat");
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path.toFile()));
             oos.writeObject(instance);
             oos.flush();
@@ -114,7 +114,7 @@ public class User implements Serializable {
     }
 
     private static User readUser(String username) {
-        Path path = Paths.get(PhotosApplication.STORE_DIR, User.STORE_DIR, username + ".dat");
+        Path path = Paths.get(Photos.STORE_DIR, User.STORE_DIR, username + ".dat");
         if (Files.exists(path)) {
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()));

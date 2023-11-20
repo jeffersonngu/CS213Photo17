@@ -27,11 +27,11 @@ public class AlbumController extends PhotosDisplay implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.photoList = PhotosApplication.getCurrentAlbum().getPhotos();
-        PhotosApplication.getCurrentAlbum().getPhotos().forEach(this::displayPhoto);
-        albumLabel.setText("Album: " + PhotosApplication.getCurrentAlbum().getName());
+        this.photoList = Photos.getCurrentAlbum().getPhotos();
+        Photos.getCurrentAlbum().getPhotos().forEach(this::displayPhoto);
+        albumLabel.setText("Album: " + Photos.getCurrentAlbum().getName());
 
-        albumLabel.setTooltip(Utility.getHelpTooltip(PhotosApplication.getCurrentAlbum().getName()));
+        albumLabel.setTooltip(Utility.getHelpTooltip(Photos.getCurrentAlbum().getName()));
     }
 
     @FXML
@@ -40,16 +40,16 @@ public class AlbumController extends PhotosDisplay implements Initializable {
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.BMP", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-        File selectedFile = fileChooser.showOpenDialog(PhotosApplication.getMainStage());
+        File selectedFile = fileChooser.showOpenDialog(Photos.getMainStage());
         if (selectedFile != null && selectedFile.exists()) {
             Path selectedPath = selectedFile.toPath();
 
             /* See if it already exists */
-            if (PhotosApplication.getCurrentAlbum().getPhotos().stream().noneMatch(photo -> photo.getPath().equals(selectedPath))) { /* Is not in current album */
+            if (Photos.getCurrentAlbum().getPhotos().stream().noneMatch(photo -> photo.getPath().equals(selectedPath))) { /* Is not in current album */
                 List<Photo> searchedPhotos = User.getInstance().searchPhotos(photo -> photo.getPath().equals(selectedPath)); /* Is in some other album */
                 Photo matchedPhoto = searchedPhotos.isEmpty() ? new Photo(selectedPath) : searchedPhotos.get(0);
 
-                PhotosApplication.getCurrentAlbum().getPhotos().add(matchedPhoto);
+                Photos.getCurrentAlbum().getPhotos().add(matchedPhoto);
                 displayPhoto(matchedPhoto);
             } else {
                 Utility.displayErrorMessage(message, "Photo already exists in this album!");

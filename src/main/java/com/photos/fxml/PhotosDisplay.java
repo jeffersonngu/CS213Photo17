@@ -1,7 +1,7 @@
 package com.photos.fxml;
 
+import com.photos.Photos;
 import com.photos.models.Photo;
-import com.photos.PhotosApplication;
 import com.photos.utility.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Base class for displaying PhotosApplication.
+ * Base class for displaying Photos.
  * Inheritors of this controller should have a {@link #photoFlowPane} and {@link #message}. Additionally, they need to initialize {@link #photoList}
  */
 public abstract class PhotosDisplay {
@@ -120,6 +120,6 @@ public abstract class PhotosDisplay {
 
     @FXML
     protected void onReturnToAlbums() {
-        PhotosApplication.switchScene("album-list.fxml");
+        Photos.switchScene("album-list.fxml");
     }
 }

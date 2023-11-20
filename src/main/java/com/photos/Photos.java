@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Main JavaFX Application and its entry point.
  */
-public class PhotosApplication extends Application {
+public class Photos extends Application {
 
     public static final String STORE_DIR = "data";
     private static final String STORE_USERNAMES = "usernames.dat";
@@ -96,8 +96,8 @@ public class PhotosApplication extends Application {
     @Override
     public void start(Stage stage) {
         mainStage = stage;
-        noImage = new Image(String.valueOf(PhotosApplication.class.getResource("/com/photos/no-image-icon.png")));
-        stage.setTitle("PhotosApplication");
+        noImage = new Image(String.valueOf(Photos.class.getResource("/com/photos/no-image-icon.png")));
+        stage.setTitle("Photos");
         switchScene("login.fxml");
     }
 
@@ -108,10 +108,10 @@ public class PhotosApplication extends Application {
      */
     public static void switchScene(String fxmlFile) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(PhotosApplication.class.getResource("fxml/" + fxmlFile));
+            FXMLLoader fxmlLoader = new FXMLLoader(Photos.class.getResource("fxml/" + fxmlFile));
             Scene scene = new Scene(fxmlLoader.load());
 
-            URL potentialCssResource = PhotosApplication.class.getResource("css/" + fxmlFile.substring(0, fxmlFile.lastIndexOf('.')) + ".css");
+            URL potentialCssResource = Photos.class.getResource("css/" + fxmlFile.substring(0, fxmlFile.lastIndexOf('.')) + ".css");
             if (potentialCssResource != null) {
                 scene.getStylesheets().add(potentialCssResource.toExternalForm());
             }
@@ -174,7 +174,7 @@ public class PhotosApplication extends Application {
      * Saves a list of known usernames.
      *
      * @param list List of usernames.
-     * @see PhotosApplication#readUsernames()
+     * @see Photos#readUsernames()
      */
     public static void writeUsernames(ObservableList<String> list) {
         try {
@@ -192,7 +192,7 @@ public class PhotosApplication extends Application {
      * Reads a list of known usernames.
      *
      * @return The {@link ObservableList} of usernames
-     * @see PhotosApplication#writeUsernames(ObservableList)
+     * @see Photos#writeUsernames(ObservableList)
      */
     @SuppressWarnings("unchecked")
     public static ObservableList<String> readUsernames() {

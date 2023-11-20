@@ -35,7 +35,7 @@ public class SearchDialog extends Dialog<List<Photo>> {
         }
 
         /* Load extras */
-        setTitle("Search PhotosApplication");
+        setTitle("Search Photos");
         setHeaderText("Search for a photo based on tags or dates");
 
         ImageView infoImage = Utility.generateInformationGraphic("""

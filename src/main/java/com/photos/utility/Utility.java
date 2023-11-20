@@ -1,6 +1,6 @@
 package com.photos.utility;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import com.photos.models.Album;
 import com.photos.models.Photo;
 import com.photos.models.User;
@@ -146,7 +146,7 @@ public class Utility {
         imageView.setPickOnBounds(true);
 
         if (imageView.getImage().getException() instanceof FileNotFoundException) {
-            imageView.setImage(PhotosApplication.getNoImage());
+            imageView.setImage(Photos.getNoImage());
         }
     }
 

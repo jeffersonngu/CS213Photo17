@@ -36,7 +36,7 @@ public class AlbumListController implements Initializable {
     protected void displayAlbum(Album album) {
         ImageView imageView;
         if (album.getPhotos().isEmpty()) {
-            imageView = new ImageView(PhotosApplication.getNoImage());
+            imageView = new ImageView(Photos.getNoImage());
         } else {
             imageView = new ImageView(album.getPhotos().get(album.getPhotos().size() - 1).getPath().toUri().toString());
         }
@@ -44,8 +44,8 @@ public class AlbumListController implements Initializable {
 
         Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {
-            PhotosApplication.setCurrentAlbum(album);
-            PhotosApplication.switchScene("album.fxml");
+            Photos.setCurrentAlbum(album);
+            Photos.switchScene("album.fxml");
         });
 
         /* Title */
@@ -161,9 +161,9 @@ public class AlbumListController implements Initializable {
         searchDialog.showAndWait().ifPresent(results -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-results.fxml"));
-                PhotosApplication.getMainStage().setScene(new Scene(fxmlLoader.load()));
+                Photos.getMainStage().setScene(new Scene(fxmlLoader.load()));
                 ((SearchResultsController) fxmlLoader.getController()).displayResults(results);
-                PhotosApplication.getMainStage().show();
+                Photos.getMainStage().show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

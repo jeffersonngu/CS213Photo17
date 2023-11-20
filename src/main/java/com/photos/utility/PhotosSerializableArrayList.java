@@ -1,6 +1,6 @@
 package com.photos.utility;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 /**
  * Wrapper for ArrayList that internally serializes data for operations. All modification
- * functions override their ArrayList equivalents to call {@link PhotosApplication#serializeData()}
+ * functions override their ArrayList equivalents to call {@link Photos#serializeData()}
  * @param <E>
  */
 public class PhotosSerializableArrayList<E> extends ArrayList<E> implements Serializable {
@@ -32,68 +32,68 @@ public class PhotosSerializableArrayList<E> extends ArrayList<E> implements Seri
     @Override
     public E set(int index, E element) {
         E set = super.set(index, element);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return set;
     }
 
     @Override
     public boolean add(E e) {
         boolean add = super.add(e);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return add;
     }
 
     @Override
     public void add(int index, E element) {
         super.add(index, element);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
     }
 
     @Override
     public E remove(int index) {
         E remove = super.remove(index);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return remove;
     }
 
     @Override
     public boolean remove(Object o) {
         boolean remove = super.remove(o);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return remove;
     }
 
     @Override
     public void clear() {
         super.clear();
-        PhotosApplication.serializeData();
+        Photos.serializeData();
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
         boolean addAll = super.addAll(c);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return addAll;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         boolean addAll = super.addAll(index, c);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return addAll;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
         boolean removeAll = super.removeAll(c);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return removeAll;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean retainAll = super.retainAll(c);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
         return retainAll;
     }
 }

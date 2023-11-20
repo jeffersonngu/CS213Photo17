@@ -1,6 +1,6 @@
 package com.photos.models;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.io.*;
@@ -62,7 +62,7 @@ public class Photo implements Serializable {
 
     public void setCaption(String caption) {
         this.caption.set(caption);
-        PhotosApplication.serializeData();
+        Photos.serializeData();
     }
 
     /**
@@ -99,7 +99,7 @@ public class Photo implements Serializable {
                 }
             }
         }
-        PhotosApplication.serializeData();
+        Photos.serializeData();
     }
 
     /**

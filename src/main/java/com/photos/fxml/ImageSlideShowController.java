@@ -1,6 +1,6 @@
 package com.photos.fxml;
 
-import com.photos.PhotosApplication;
+import com.photos.Photos;
 import com.photos.models.Photo;
 import com.photos.utility.Utility;
 import javafx.collections.FXCollections;
@@ -54,7 +54,7 @@ public class ImageSlideShowController {
     protected void updateImage() {
         Image image = new Image(currentPhoto.getPath().toUri().toString());
         if (image.getException() instanceof FileNotFoundException) {
-            image = PhotosApplication.getNoImage();
+            image = Photos.getNoImage();
             slideshowCaption.textProperty().unbind();
             slideshowCaption.setText("Missing Image: " + currentPhoto.getPath().toUri());
             slideshowDateTime.setText("");
