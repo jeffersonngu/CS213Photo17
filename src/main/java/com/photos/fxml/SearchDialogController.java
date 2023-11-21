@@ -6,6 +6,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for search-dialog.fxml.
+ */
 public class SearchDialogController {
 
     @FXML

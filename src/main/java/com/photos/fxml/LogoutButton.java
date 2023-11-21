@@ -11,6 +11,10 @@ import javafx.scene.control.Button;
  */
 public class LogoutButton extends Button {
 
+    /**
+     * Will serialize the data, delete the current user instance,
+     * and finally bring the user back to the login screen
+     */
     public LogoutButton() {
         super("Logout");
         this.setOnAction(actionEvent -> {

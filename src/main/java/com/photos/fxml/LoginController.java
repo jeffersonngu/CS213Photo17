@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 /**
- * Controller for the first visible screen
+ * Controller of login.fxml for the first visible screen.
  */
 public class LoginController {
 
@@ -25,6 +25,10 @@ public class LoginController {
     @FXML
     private TextField usernameInput;
 
+    /**
+     * Handles the login, verifying a username and
+     * plays the login sequence
+     */
     @FXML
     protected void onLogin() {
         if (usernameInput == null || usernameInput.getText().isEmpty()) {

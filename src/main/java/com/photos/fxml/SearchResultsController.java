@@ -12,15 +12,23 @@ import javafx.scene.image.ImageView;
 import java.util.List;
 
 /**
- * Controller to show the results of a search.
+ * Controller of search-results.fxml to show the results of a search.
  */
 public class SearchResultsController extends PhotosDisplay {
 
+    /**
+     * Initialization setup for the FXML, but since we need context we call this
+     * method before fully switching scenes.
+     * @param photos The list of photos found as a result of the search
+     */
     public void displayResults(List<Photo> photos) {
         this.photoList = photos;
         photos.forEach(this::displayPhoto);
     }
 
+    /**
+     * Takes all the photos found and saves it to a new album
+     */
     @FXML
     protected void onSaveResults() {
         TextInputDialog inputDialog = new TextInputDialog();

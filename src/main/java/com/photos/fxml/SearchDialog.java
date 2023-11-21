@@ -20,6 +20,9 @@ import java.util.function.Predicate;
  */
 public class SearchDialog extends Dialog<List<Photo>> {
 
+    /**
+     * Instance of the controller to interface with the fxml
+     */
     private final SearchDialogController searchDialogController;
 
     public SearchDialog() {
@@ -72,6 +75,11 @@ public class SearchDialog extends Dialog<List<Photo>> {
         });
     }
 
+    /**
+     * Predicate builder, will go down each row and add it to the predicate under
+     * specified operations (e.g. "AND")
+     * @return The final predicate after combining all results
+     */
     private Predicate<Photo> getSearchPredicate() {
         Predicate<Photo> result = p -> true;
 
@@ -94,6 +102,13 @@ public class SearchDialog extends Dialog<List<Photo>> {
         return result;
     }
 
+    /**
+     * Helper function to combine predicates based on an operator
+     * @param predicate1 The initial predicate
+     * @param operator The operator to combine with (e.g. "AND", "OR")
+     * @param predicate2 The predicate to add to predicate1
+     * @return
+     */
     private Predicate<Photo> combinePredicate(Predicate<Photo> predicate1, String operator, Predicate<Photo> predicate2) {
         return switch (operator) {
             case "AND" -> predicate1.and(predicate2);
@@ -102,6 +117,11 @@ public class SearchDialog extends Dialog<List<Photo>> {
         };
     }
 
+    /**
+     * A listener to display or hide the ChoiceBoxes
+     * {@link SearchDialogController#combination1} and
+     * {@link SearchDialogController#combination2}
+     */
     private void updateVisibility() {
         boolean tag1Active = searchDialogController.tag1_1.getValue() != null && !searchDialogController.tag1_2.getText().isBlank();
         boolean tag2Active = searchDialogController.tag2_1.getValue() != null && !searchDialogController.tag2_2.getText().isBlank();

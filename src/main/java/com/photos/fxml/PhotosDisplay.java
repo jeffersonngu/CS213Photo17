@@ -20,7 +20,9 @@ import java.util.List;
 
 /**
  * Base class for displaying Photos.
- * Inheritors of this controller should have a {@link #photoFlowPane} and {@link #message}. Additionally, they need to initialize {@link #photoList}
+ * Inheritors of this controller should have a
+ * {@link #photoFlowPane} and {@link #message}.
+ * Additionally, they need to initialize {@link #photoList}.
  */
 public abstract class PhotosDisplay {
 
@@ -32,6 +34,10 @@ public abstract class PhotosDisplay {
 
     protected List<Photo> photoList;
 
+    /**
+     * Base helper method
+     * @param photo
+     */
     protected void displayPhoto(Photo photo) {
         ImageView imageView = new ImageView(photo.getPath().toUri().toString());
         Utility.setImageViewDefaultSettings(imageView);
@@ -81,6 +87,12 @@ public abstract class PhotosDisplay {
         photoFlowPane.getChildren().add(borderPane);
     }
 
+    /**
+     * Helper method to generate the context menu for each photo
+     * @param photo The photo that the context menu belongs to
+     * @param borderPane The borderpane that holds each photo
+     * @return The context menu of all operations that can be performed on a photo
+     */
     protected ContextMenu getContextMenu(Photo photo, BorderPane borderPane) {
         MenuItem setCaption = new MenuItem("Set Caption");
         setCaption.setOnAction(actionEvent -> {
@@ -123,6 +135,9 @@ public abstract class PhotosDisplay {
         return new ContextMenu(setCaption, editTags, copyToAlbum);
     }
 
+    /**
+     * Loads {@link AlbumListController} and its FXML
+     */
     @FXML
     protected void onReturnToAlbums() {
         Photos.switchScene("album-list.fxml");

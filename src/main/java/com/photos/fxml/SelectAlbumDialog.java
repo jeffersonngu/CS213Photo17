@@ -20,10 +20,20 @@ import java.util.List;
  */
 public class SelectAlbumDialog extends Dialog<List<Album>> {
 
+    /**
+     * Instance of the controller to interface with the fxml
+     */
     private final SelectAlbumDialogController selectAlbumDialogController;
 
+    /**
+     * A list of all selected {@link Album}s, if {@link #hasMultiSelect}
+     * is false then will only allow a size of 1 at most
+     */
     private final ObservableList<Album> selectedAlbums;
 
+    /**
+     * Whether we allow multi-selection of albums or not
+     */
     private final boolean hasMultiSelect;
 
     /**
@@ -32,6 +42,15 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
      */
     private BorderPane previousBorderPane = null;
 
+    /**
+     * Initializes all parameters, is flexible to allow
+     * different operations such as move/copy of {@link Photo}s
+     * on {@link Album}s
+     * @param self The photo being operated on
+     * @param title The title of the dialog
+     * @param header The header of the dialog
+     * @param hasMultiSelect Whether we allow multi-selection of {@link Album}s
+     */
     public SelectAlbumDialog(Photo self, String title, String header, boolean hasMultiSelect) {
         super();
 
@@ -68,6 +87,10 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
         });
     }
 
+    /**
+     * Displays the album, including its thumbnail, text information, and events
+     * @param album The album to display
+     */
     protected void displayAlbum(Album album) {
         ImageView imageView;
         if (album.getPhotos().isEmpty()) {
@@ -97,6 +120,13 @@ public class SelectAlbumDialog extends Dialog<List<Album>> {
         selectAlbumDialogController.albumFlowPane.getChildren().add(borderPane);
     }
 
+    /**
+     * When an album is selected, either select it or deselect it.
+     * When {@link #hasMultiSelect} is false, will also deselect
+     * all other albums
+     * @param borderPane The borderPane of the currently clicked album
+     * @param album The album that has been clicked
+     */
     protected void updateSelection(BorderPane borderPane, Album album) {
         if (selectedAlbums.contains(album)) {
             borderPane.setStyle("");

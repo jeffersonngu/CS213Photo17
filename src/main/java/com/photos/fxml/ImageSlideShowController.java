@@ -18,7 +18,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * Controller for each image slideshow
+ * Controller of image-slide-show.fxml to show a slideshow
+ * of images from a list.
  */
 public class ImageSlideShowController {
 
@@ -37,11 +38,27 @@ public class ImageSlideShowController {
     @FXML
     protected Button backButton;
 
+    /**
+     * List of photos to swap between.
+     */
     protected List<Photo> photoList;
+
+    /**
+     * Note which photo is currently viewed via an index of {@link #photoList}.
+     */
     protected int currentIndex;
 
+    /**
+     * The current photo being displayed
+     */
     protected Photo currentPhoto;
 
+    /**
+     * Initialization setup for the FXML, but since we need context we call this
+     * method before fully switching scenes.
+     * @param photoList The photos to consider displaying.
+     * @param initialPhoto The first photo to show.
+     */
     public void setupImageSlideShow(List<Photo> photoList, Photo initialPhoto) {
         if (!photoList.contains(initialPhoto)) throw new RuntimeException("Initial photo is not in the list!");
         this.photoList = photoList;
@@ -53,6 +70,9 @@ public class ImageSlideShowController {
         updateImage();
     }
 
+    /**
+     * Updates the current view to show the new image
+     */
     protected void updateImage() {
         Image image = new Image(currentPhoto.getPath().toUri().toString());
         if (image.getException() instanceof FileNotFoundException) {
@@ -71,6 +91,9 @@ public class ImageSlideShowController {
         slideshowImage.setImage(image);
     }
 
+    /**
+     * Attempt to move back one photo in the list. If cannot then do nothing.
+     */
     @FXML
     protected void onBackButton() {
         if (currentIndex <= 0) return;
@@ -78,6 +101,9 @@ public class ImageSlideShowController {
         updateImage();
     }
 
+    /**
+     * Attempt to move forward one photo in the list. If cannot then do nothing.
+     */
     @FXML
     protected void onForwardButton() {
         if (currentIndex >= (photoList.size() - 1)) return;
@@ -85,6 +111,9 @@ public class ImageSlideShowController {
         updateImage();
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     protected void onBackToAlbumButton() {
         Stage currentStage = (Stage) backButton.getScene().getWindow();

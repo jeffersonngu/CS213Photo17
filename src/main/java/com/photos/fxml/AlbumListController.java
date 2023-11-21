@@ -18,7 +18,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the entire list of albums
+ * Controller of album-list.fxml for the entire list of albums
+ * of a user.
  */
 public class AlbumListController implements Initializable {
 
@@ -31,12 +32,27 @@ public class AlbumListController implements Initializable {
     @FXML
     private Label message;
 
+    /**
+     * Load all the albums, displays them, and header
+     *
+     * @param url
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resourceBundle
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         yourAlbums.setText(User.getInstance().getUsername() + "'s albums - " + User.getInstance().getAlbums().size());
         User.getInstance().getAlbums().forEach(this::displayAlbum);
     }
 
+    /**
+     * Displays the album, including its thumbnail, text information, and events
+     * @param album The album to display
+     */
     protected void displayAlbum(Album album) {
         ImageView imageView;
         if (album.getPhotos().isEmpty()) {
@@ -93,6 +109,12 @@ public class AlbumListController implements Initializable {
         albumFlowPane.getChildren().add(borderPane);
     }
 
+    /**
+     * Helper method to generate the context menu for each album
+     * @param album The album that the context menu belongs to
+     * @param borderPane The borderpane that holds each album
+     * @return The context menu of all operations that can be performed on a album
+     */
     protected ContextMenu getContextMenu(Album album, BorderPane borderPane) {
         MenuItem rename = new MenuItem("Rename");
         rename.setOnAction(actionEvent -> {
@@ -134,6 +156,10 @@ public class AlbumListController implements Initializable {
         return new ContextMenu(rename, delete);
     }
 
+    /**
+     * Loads the {@link TextInputDialog} for creating a new {@link Album}.
+     * Will not allow inputs that cause duplicate names.
+     */
     @FXML
     protected void onAddAlbum() {
         TextInputDialog inputDialog = new TextInputDialog();
@@ -162,6 +188,9 @@ public class AlbumListController implements Initializable {
         });
     }
 
+    /**
+     * Loads the {@link SearchDialog}
+     */
     @FXML
     protected void onSearch() {
         SearchDialog searchDialog = new SearchDialog();

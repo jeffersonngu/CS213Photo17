@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the admin user and all their respective actions.
+ * Controller of admin.fxml for the admin user and all their respective actions.
  */
 public class AdminController implements Initializable {
 
@@ -31,11 +31,25 @@ public class AdminController implements Initializable {
     @FXML
     private ListView<String> usersListView;
 
+    /**
+     * On initialization, populate the list of usernames
+     *
+     * @param url
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resourceBundle
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usersListView.setItems(Photos.getUsernames());
     }
 
+    /**
+     * Adds a user only if it is not already created or is reserved
+     */
     @FXML
     protected void onAddUser() {
         if (addUserField == null || addUserField.getText().isEmpty()) {
@@ -50,6 +64,9 @@ public class AdminController implements Initializable {
         }
     }
 
+    /**
+     * Deletes the currently selected user, including its .dat file
+     */
     @FXML
     protected void onDeleteUser() {
         String selectedUser = usersListView.getSelectionModel().getSelectedItem();

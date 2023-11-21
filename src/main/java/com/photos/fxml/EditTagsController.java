@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller for the edit tags option in the dropdown menu
- * for a single photo
+ * Controller of edit-tags.fxml for the edit
+ * tags option in the dropdown menu for a single photo.
  */
 public class EditTagsController {
 
@@ -38,12 +38,23 @@ public class EditTagsController {
     protected ListView<Map.Entry<String, String>> tagsListView;
 
     @FXML
-    Button backButton;
+    protected Button backButton;
 
+    /**
+     * The photo we are curerntly operating on
+     */
     protected Photo photo;
 
+    /**
+     * A reference to the tagsMap
+     */
     protected Map<String, List<String>> tagsMap;
 
+    /**
+     * Initialization setup for the FXML, but since we need context we call this
+     * method before fully switching scenes.
+     * @param self The photo we are operating on
+     */
     public void setupEditTags(Photo self) {
         this.photo = self;
         this.tagsMap = self.getTagsMap();
@@ -80,7 +91,7 @@ public class EditTagsController {
 
     /**
      * We do not have the ability to easily use Observable Objects here.
-     * It is better to simply clear and repopulate the ListView
+     * It is better to simply clear and repopulate the ListView.
      */
     private void updateTagsListView() {
         tagsListView.getItems().clear();
@@ -88,6 +99,13 @@ public class EditTagsController {
         tagsMap.forEach((key, values) -> values.forEach(value -> tagsListView.getItems().add(Map.entry(key, value))));
     }
 
+    /**
+     * Warns the user if they are trying to modify a
+     * single-valued tag.
+     * Also asks the user if they want to make
+     * a new tag single or multivalued.
+     * @param value The tag type inputted.
+     */
     private void checkWarnings(String value) {
         if (value == null || value.isBlank()) {
             multivalued.setVisible(false);
@@ -105,6 +123,9 @@ public class EditTagsController {
         warning.setVisible(!User.getInstance().getTagMap().getOrDefault(value, true) && tagsMap.get(value) != null);
     }
 
+    /**
+     * Adds a tag-value pair to the {@link #photo}.
+     */
     @FXML
     protected void onAddTag() {
         String tag1Value = tag1.getValue();
@@ -120,6 +141,9 @@ public class EditTagsController {
         checkWarnings(tag1Value);
     }
 
+    /**
+     * Deletes the currently selected tag type-value pair from the {@link #photo}.
+     */
     @FXML
     protected void onDeleteTag() {
         Map.Entry<String, String> entry = tagsListView.getSelectionModel().getSelectedItem();
@@ -132,6 +156,9 @@ public class EditTagsController {
         }
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     protected void onBackToAlbum() {
         Stage currentStage = (Stage) backButton.getScene().getWindow();
