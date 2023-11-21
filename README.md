@@ -18,8 +18,8 @@ To build the jar, run `mvn package`
 1. Copy and Move photo to another album disallows selection of albums that already contain the photo.
 2. While it asks "A user can define their own tag type and add it to the list (so from that point on, that tag type will show up in the preset list of types the user can choose from)", it does not say we have to implement a way to remove these custom tags or a way to change their single/multi value nature. In other words, assume they can be permanent.
 3. Javadocs does not require @version, @author, @since, or @use. Though annotations such as @param and @return are necessary
-4. Folder data has .gitkeep simply to keep git happy, it is not relevant (even so data folder will be generated if not present)
-5. Stock folder will (re)generate after all Users are deleted or there does not exist a username.dat in data folder (it will also (re)generate the images if you wonder where those come from)
+4. Folder data has `.gitkeep` simply to keep git happy, it is not relevant (even so data folder will be generated if not present)
+5. The `data/stock` folder will (re)generate after all Users are deleted or there does not exist a username.dat in data folder (it will also (re)generate the images if they are deleted).
 6. Grader does not need to build a jar or use `Launcher`, those exist for fun
 
 ## Project Members
