@@ -1,0 +1,20 @@
+#rootVBox {
+  -fx-background-color: #115e59;
+}
+
+#backToAlbumButton,
+#backButton,
+#forwardButton {
+  -fx-background-color: #fde047;
+  -fx-font-weight: bold;
+}
+
+#backToAlbumButton:hover,
+#backButton:hover,
+#forwardButton:hover {
+  -fx-background-color: #fef08a;
+}
+
+#slideshowCaption, #slideshowDateTime {
+  -fx-text-fill: #fde047;
+}

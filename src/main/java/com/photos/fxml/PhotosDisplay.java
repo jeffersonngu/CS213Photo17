@@ -40,7 +40,9 @@ public abstract class PhotosDisplay {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("image-slideshow.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Photo Slideshow");
-                stage.setScene(new Scene(fxmlLoader.load()));
+                Scene imageSlideShowScene = new Scene(fxmlLoader.load());
+                imageSlideShowScene.getStylesheets().add(Photos.class.getResource("css/image-slideshow.css").toExternalForm());
+                stage.setScene(imageSlideShowScene);
                 stage.initModality(Modality.APPLICATION_MODAL);
 
                 ((ImageSlideShowController) fxmlLoader.getController()).setupImageSlideShow(photoList, photo);

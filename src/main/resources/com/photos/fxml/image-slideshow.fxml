@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,13 +11,16 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.ImageSlideShowController">
-   <VBox prefHeight="400.0" prefWidth="600.0">
-      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackToAlbumButton" text="Back" />
-      <HBox alignment="CENTER" maxHeight="300.0" minHeight="300.0" prefHeight="300.0" VBox.vgrow="NEVER">
-            <ImageView fx:id="slideshowImage" cache="true" fitHeight="295.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+   <VBox fx:id="rootVBox" prefHeight="400.0" prefWidth="600.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button fx:id="backToAlbumButton" mnemonicParsing="false" onAction="#onBackToAlbumButton" text="Back" />
+      <HBox fx:id="imageViewHBox" alignment="CENTER" maxHeight="300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="580.0" VBox.vgrow="NEVER">
+            <ImageView fx:id="slideshowImage" cache="true" fitHeight="276.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+         <padding>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </padding>
       </HBox>
-      <HBox maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
-         <Button mnemonicParsing="false" onAction="#onBackButton" prefHeight="92.0" prefWidth="54.0" text="&lt;" HBox.hgrow="NEVER" />
+      <HBox fx:id="controlsHBox" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+         <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButton" prefHeight="92.0" prefWidth="54.0" text="&lt;" HBox.hgrow="NEVER" />
          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
             <Label fx:id="slideshowCaption" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="21.0" prefWidth="492.0" text="Caption" VBox.vgrow="ALWAYS">
                <font>
@@ -26,7 +30,7 @@
             <Label fx:id="slideshowDateTime" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="21.0" prefWidth="492.0" text="Date/Time" VBox.vgrow="ALWAYS" />
             <ListView fx:id="slideshowTags" maxHeight="1.7976931348623157E308" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </VBox>
-         <Button mnemonicParsing="false" onAction="#onForwardButton" prefHeight="125.0" prefWidth="54.0" text="&gt;" HBox.hgrow="NEVER" />
+         <Button fx:id="forwardButton" mnemonicParsing="false" onAction="#onForwardButton" prefHeight="125.0" prefWidth="54.0" text="&gt;" HBox.hgrow="NEVER" />
       </HBox>
    </VBox>
 </AnchorPane>
