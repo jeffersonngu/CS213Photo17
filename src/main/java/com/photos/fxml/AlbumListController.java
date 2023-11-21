@@ -45,6 +45,7 @@ public class AlbumListController implements Initializable {
             imageView = new ImageView(album.getPhotos().get(album.getPhotos().size() - 1).getPath().toUri().toString());
         }
         BorderPane borderPane = new BorderPane(imageView);
+        borderPane.getStyleClass().add("photo-dp");
 
         Utility.setImageViewDefaultSettings(imageView);
         imageView.setOnMouseClicked(mouseEvent -> {

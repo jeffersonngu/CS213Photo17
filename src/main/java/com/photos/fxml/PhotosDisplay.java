@@ -61,6 +61,7 @@ public abstract class PhotosDisplay {
         BorderPane.setAlignment(label, Pos.CENTER);
         BorderPane borderPane = new BorderPane(imageView);
         borderPane.setTop(label);
+        borderPane.getStyleClass().add("photo-dp");
 
         Tooltip captionTooltip = Utility.getHelpTooltip(photo.getCaption());
         captionTooltip.textProperty().bind(photo.getObservableCaption());

@@ -24,3 +24,7 @@
 #yourAlbums {
   -fx-text-fill: #fde047;
 }
+
+.photo-dp:hover {
+  -fx-background-color: rgba(170, 170, 170, 0.5);
+}
