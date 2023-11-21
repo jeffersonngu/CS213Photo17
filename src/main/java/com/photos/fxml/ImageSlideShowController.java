@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -87,5 +89,21 @@ public class ImageSlideShowController {
     protected void onBackToAlbumButton() {
         Stage currentStage = (Stage) backButton.getScene().getWindow();
         currentStage.close();
+    }
+
+    /**
+     * For convenience, allow moving backward and forward using arrow keys.
+     */
+    @FXML
+    protected void onKeyReleased(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.RIGHT)) {
+            if (currentIndex >= (photoList.size() - 1)) return;
+            currentPhoto = photoList.get(++currentIndex);
+            updateImage();
+        } else if (event.getCode().equals(KeyCode.LEFT)) {
+            if (currentIndex <= 0) return;
+            currentPhoto = photoList.get(--currentIndex);
+            updateImage();
+        }
     }
 }
