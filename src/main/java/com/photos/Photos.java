@@ -237,7 +237,7 @@ public class Photos extends Application {
         User.generateInstance("stock");
         User stockUser = User.getInstance();
 
-        Album stockAlbum = new Album("Stock Album");
+        Album stockAlbum = new Album("stock");
 
         String out = "data/stock/";
         IntStream.range(0, 5).forEach(i -> {
