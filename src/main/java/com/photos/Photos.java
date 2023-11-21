@@ -76,7 +76,6 @@ public class Photos extends Application {
     public void init() {
         /* We want to exit our program if any uncaught exception occurs */
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            throwable.printStackTrace(); // TODO: Remove before final commit because we are not allowed to print anything
             Platform.exit();
         });
 
