@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.ImageSlideShowController">
+<AnchorPane onKeyReleased="#onKeyReleased" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photos.fxml.ImageSlideShowController">
    <VBox fx:id="rootVBox" prefHeight="400.0" prefWidth="600.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Button fx:id="backToAlbumButton" mnemonicParsing="false" onAction="#onBackToAlbumButton" text="Back" />
       <HBox fx:id="imageViewHBox" alignment="CENTER" maxHeight="300.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="580.0" VBox.vgrow="NEVER">
