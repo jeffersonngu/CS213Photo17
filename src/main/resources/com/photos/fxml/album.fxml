@@ -15,7 +15,7 @@
        <HBox>
            <Label fx:id="albumLabel" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
               <font>
-                  <Font size="24.0"/>
+                  <Font size="24.0" />
               </font>
            </Label>
            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onReturnToAlbums" text="Back to albums" />
@@ -27,7 +27,7 @@
           <FlowPane fx:id="photoFlowPane" hgap="10" prefHeight="260.0" prefWidth="678.0" vgap="10" />
         </ScrollPane>
          <HBox alignment="BOTTOM_LEFT" prefWidth="680.0">
-              <LogoutButton fx:id="logoutButton" prefWidth="56.0" text="Logout" />
+              <LogoutButton fx:id="logoutButton" prefHeight="26.0" prefWidth="120.0" text="Logout" />
                <AnchorPane maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
               <Button fx:id="addPhotoButton" mnemonicParsing="false" onAction="#onAddPhoto" prefHeight="40.0" prefWidth="40.0" text="+" />
          </HBox>
