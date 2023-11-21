@@ -98,7 +98,9 @@ public abstract class PhotosDisplay {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-tags.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Edit Tags");
-                stage.setScene(new Scene(fxmlLoader.load()));
+                Scene editTagsScene = new Scene(fxmlLoader.load());
+                editTagsScene.getStylesheets().add(Photos.class.getResource("css/edit-tags.css").toExternalForm());
+                stage.setScene(editTagsScene);
                 stage.initModality(Modality.APPLICATION_MODAL);
 
                 ((EditTagsController) fxmlLoader.getController()).setupEditTags(photo);

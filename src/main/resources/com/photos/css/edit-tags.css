@@ -1,0 +1,28 @@
+#anchorPane {
+  -fx-background-color: #115e59;
+}
+
+#hboxRoot {
+  -fx-background-color: #f3f4f6;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+}
+
+#addTagButton,
+#deleteTagButton {
+  -fx-background-color: #0f766e;
+  -fx-text-fill: #f3f4f6;
+}
+
+#addTagButton:hover,
+#deleteTagButton:hover {
+  -fx-background-color: #0d9488;
+}
+
+#backButton {
+  -fx-background-color: #fde047;
+  -fx-font-weight: bold;
+}
+
+#backButton:hover {
+  -fx-background-color: #fef08a;
+}
