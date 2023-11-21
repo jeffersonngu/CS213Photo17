@@ -55,8 +55,6 @@ public class AdminController implements Initializable {
         String selectedUser = usersListView.getSelectionModel().getSelectedItem();
         if (selectedUser == null) {
             deleteUserLabel.setText("Please select a User from the list first!");
-        } else if (selectedUser.equals("stock")) {
-            deleteUserLabel.setText("Cannot delete stock user!");
         } else {
             deleteUserLabel.setText("Deleted " + selectedUser + "!");
             Photos.getUsernames().remove(selectedUser);

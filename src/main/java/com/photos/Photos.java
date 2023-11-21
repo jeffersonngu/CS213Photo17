@@ -17,8 +17,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 /**
@@ -74,7 +76,7 @@ public class Photos extends Application {
     public void init() {
         /* We want to exit our program if any uncaught exception occurs */
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            throwable.printStackTrace();
+            throwable.printStackTrace(); // TODO: Remove before final commit because we are not allowed to print anything
             Platform.exit();
         });
 
@@ -85,11 +87,9 @@ public class Photos extends Application {
             throw new RuntimeException(e);
         }
 
-
         usernames = readUsernames();
 
-        // Create stock user if one doesn't exist
-        if (!usernames.contains("stock")) {
+        if (usernames.isEmpty()) { /* First load and/or data was wiped */
             addStockUser();
         }
     }
@@ -222,25 +222,41 @@ public class Photos extends Application {
      * to its stock album.
      */
     public static void addStockUser() {
+        String[] stockImages = {"ablobattention.gif", "ablobguitar.gif", "ablobhop.gif", "ablobhydraulicpress.gif", "ablobnomcookie.gif"};
+
+        try {
+            Path dir = Paths.get(STORE_DIR, "stock");
+            if (Files.notExists(dir)) Files.createDirectories(dir);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         usernames.add("stock");
 
-        // "Login" the stock user temporarily to add photos
+        /* "Login" the stock user temporarily to add photos */
         User.generateInstance("stock");
         User stockUser = User.getInstance();
 
-        Album stockAlbum = new Album("stock");
+        Album stockAlbum = new Album("Stock Album");
 
-        IntStream.range(1, 6).forEach(i -> {
-            Photo newPhoto = new Photo(Paths.get("data/stock/" + i + ".png"));
-            stockAlbum.getPhotos().add(newPhoto);
+        String out = "data/stock/";
+        IntStream.range(0, 5).forEach(i -> {
+            try {
+                Files.copy(Objects.requireNonNull(Photos.class.getResourceAsStream("stock/" + stockImages[i])), Paths.get(out + stockImages[i]), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Photo photo = new Photo(Paths.get("data/stock/" + stockImages[i]));
+            photo.setCaption("Stock Photo " + (i + 1));
+            stockAlbum.getPhotos().add(photo);
         });
 
         stockUser.getAlbums().add(stockAlbum);
 
-        // Serialize the stock user
-        User.writeUser();
+        /* Serialize changes */
+        serializeData();
 
-        // "Logout" the stock user
+        /* "Logout" the stock user */
         User.deleteInstance();
     }
 }
