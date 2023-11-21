@@ -86,14 +86,9 @@ public class SearchDialog extends Dialog<List<Photo>> {
         }
 
         if (searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null) {
-            if (searchDialogController.combination2.getValue() != null) {
-                result = combinePredicate(result, searchDialogController.combination2.getValue(),
-                        photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
-                                && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay());
-            } else {
-                result = photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
-                                && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay();
-            }
+            result = combinePredicate(result, searchDialogController.combination2.getValue(),
+                    photo -> photo.getLastModified().to(TimeUnit.DAYS) >= searchDialogController.date1.getValue().toEpochDay()
+                            && photo.getLastModified().to(TimeUnit.DAYS) <= searchDialogController.date2.getValue().toEpochDay());
         }
 
         return result;
@@ -112,32 +107,20 @@ public class SearchDialog extends Dialog<List<Photo>> {
         boolean tag2Active = searchDialogController.tag2_1.getValue() != null && !searchDialogController.tag2_2.getText().isBlank();
         boolean dateActive = searchDialogController.date1.getValue() != null && searchDialogController.date2.getValue() != null;
 
-        if (tag1Active && tag2Active) {
+        if (tag1Active && tag2Active && !searchDialogController.combination1.isVisible()) {
             searchDialogController.combination1.setVisible(true);
             searchDialogController.combination1.setValue("AND");
         } else {
             searchDialogController.combination1.setVisible(false);
-            searchDialogController.combination1.setValue("IGNORE");
+            searchDialogController.combination1.setValue("AND");
         }
 
-        if ((tag1Active || tag2Active) && dateActive) {
+        if ((tag1Active || tag2Active) && dateActive && !searchDialogController.combination2.isVisible()) {
             searchDialogController.combination2.setVisible(true);
             searchDialogController.combination2.setValue("AND");
         } else {
             searchDialogController.combination2.setVisible(false);
-            searchDialogController.combination2.setValue("IGNORE");
-        }
-
-        // TODO: Somewhat fixes most issues? Still need to look at combination of tag2 + date
-        if (!tag1Active && !tag2Active && dateActive) {
-            searchDialogController.combination2.setVisible(false);
             searchDialogController.combination2.setValue("AND");
-        }
-
-        if (!tag1Active && tag2Active && !dateActive) {
-            searchDialogController.combination1.setVisible(false);
-            searchDialogController.combination1.setValue("AND");
-            searchDialogController.combination2.setValue("IGNORE");
         }
     }
 }
