@@ -55,7 +55,7 @@ public class AlbumListController implements Initializable {
 
         /* Title */
         Label label = new Label();
-        label.textProperty().bind(album.getObservableName().concat("  「" + album.getPhotos().size() + "」"));
+        label.textProperty().bind(album.getObservableName());
         label.setTextOverrun(OverrunStyle.ELLIPSIS);
         label.setAlignment(Pos.CENTER);
         label.setMaxWidth(100.0);
@@ -78,6 +78,7 @@ public class AlbumListController implements Initializable {
                         + Utility.getDate(photoMaxDate.getLastModified()));
             }
         });
+        dateRange.setText(dateRange.getText() + " 「" + album.getPhotos().size() + "」");
         BorderPane.setAlignment(dateRange, Pos.CENTER_LEFT);
 
         /* Context Menu */
